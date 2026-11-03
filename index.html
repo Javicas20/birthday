@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2a1530">
+<title>🎁</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #2a1530;
+    --bg2: #5b2346;
+    --card: #fff8f2;
+    --ink: #2b1d24;
+    --muted: #7c6570;
+    --accent: #e8486c;
+    --accent2: #f6a33a;
+    --ok: #2e9e6b;
+    --radius: 22px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    font-family: "Nunito", system-ui, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg1));
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: max(20px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+    overflow-x: hidden;
+  }
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .stars span {
+    position: absolute; width: 3px; height: 3px; border-radius: 50%;
+    background: #fff; opacity: .5; animation: twinkle 3s infinite ease-in-out;
+  }
+  @keyframes twinkle { 50% { opacity: .1; transform: scale(.6); } }
+
+  .card {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 440px;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px 24px 26px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    animation: pop .5s cubic-bezier(.2,1.4,.4,1) both;
+  }
+  @keyframes pop { from { opacity: 0; transform: translateY(20px) scale(.96); } }
+  .step {
+    display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--accent); background: #fde6ec;
+    padding: 5px 12px; border-radius: 99px; margin-bottom: 12px;
+  }
+  h1 {
+    font-family: "Fraunces", serif; font-weight: 800;
+    font-size: clamp(26px, 7vw, 34px); line-height: 1.1; margin: 0 0 14px;
+  }
+  .content { font-size: 17px; line-height: 1.55; }
+  .content p { margin: 0 0 12px; }
+  .content ol { padding-left: 22px; margin: 0 0 12px; }
+  .content li { margin-bottom: 6px; }
+  .grande { font-size: 30px; text-align: center; letter-spacing: .05em; }
+  .mono { font-family: ui-monospace, Menlo, monospace; font-size: 22px; word-break: break-word; }
+  .content img, .media img, .media video {
+    width: 100%; border-radius: 14px; display: block; margin: 10px 0;
+  }
+
+  form { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+  input {
+    font: inherit; font-size: 18px; padding: 14px 16px;
+    border-radius: 14px; border: 2px solid #ead9dd; background: #fff; color: var(--ink);
+    outline: none; transition: border-color .2s;
+  }
+  input:focus { border-color: var(--accent); }
+  button {
+    font: inherit; font-weight: 700; font-size: 17px;
+    padding: 14px 16px; border: 0; border-radius: 14px; cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff;
+    transition: transform .1s;
+  }
+  button:active { transform: scale(.97); }
+  button.ghost { background: transparent; color: var(--muted); border: 2px dashed #e3cfd5; }
+
+  .shake { animation: shake .4s; }
+  @keyframes shake { 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
+  .msg { min-height: 22px; font-size: 15px; color: var(--accent); text-align: center; }
+
+  .next {
+    margin-top: 18px; padding: 18px; border-radius: 16px;
+    background: linear-gradient(135deg, #fff1d6, #ffe0ea);
+    border: 2px solid #f8cdd8; animation: pop .5s both;
+  }
+  .next small { display: block; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; margin-bottom: 6px; }
+  .next p { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.4; }
+  .help { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: #f3ecef; color: var(--muted); font-size: 15px; }
+  .solved { color: var(--ok); font-weight: 700; text-align: center; margin-top: 14px; }
+  .center { text-align: center; }
+  .emoji { font-size: 56px; text-align: center; margin-bottom: 6px; }
+
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; margin: 0; }
+  .gallery img:first-child:nth-last-child(odd) { grid-column: span 2; aspect-ratio: 16/10; }
+
+  canvas#confetti { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<main class="card" id="app"></main>
+<canvas id="confetti"></canvas>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  const J = window.JUEGO;
+  const app = document.getElementById("app");
+  const params = new URLSearchParams(location.search);
+  const DEV = params.has("dev");
+  const KEY = "juego-cumple-progreso";
+  const N = J.pruebas.length;
+
+  // ---------- almacenamiento seguro ----------
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+    clear() { try { Object.keys(localStorage).filter(k => k.startsWith("juego-cumple")).forEach(k => localStorage.removeItem(k)); } catch {} },
+  };
+
+  if (params.has("reset")) {
+    store.clear();
+    app.innerHTML = `<div class="emoji">🧹</div><h1 class="center">Progreso borrado</h1>`;
+    return;
+  }
+
+  // progreso = número de la última prueba resuelta (0 = solo ha visto el inicio)
+  const progreso = () => store.get(KEY, -1);
+  const setProgreso = (n) => { if (n > progreso()) store.set(KEY, n); };
+
+  // ---------- utilidades ----------
+  const normalizar = (s) => String(s)
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9ñ ]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function estrellas() {
+    const c = document.getElementById("stars");
+    for (let i = 0; i < 40; i++) {
+      const s = document.createElement("span");
+      s.style.left = Math.random() * 100 + "%";
+      s.style.top = Math.random() * 100 + "%";
+      s.style.animationDelay = Math.random() * 3 + "s";
+      c.appendChild(s);
+    }
+  }
+
+  // ---------- pantallas ----------
+  function bloqueado() {
+    app.innerHTML = `
+      <div class="emoji">🔒</div>
+      <h1 class="center">¡Alto ahí!</h1>
+      <div class="content center"><p>${esc(J.mensajeBloqueado)}</p></div>`;
+  }
+
+  function pantallaInicio() {
+    setProgreso(0);
+    app.innerHTML = `
+      <span class="step">Empieza el juego</span>
+      <h1>${J.inicio.titulo}</h1>
+      <div class="content">${J.inicio.texto}</div>
+      <div class="next"><small>Primera pista</small><p>${J.inicio.siguiente}</p></div>`;
+  }
+
+  function pantallaPrueba(i) {
+    const p = J.pruebas[i - 1];
+    const resuelta = progreso() >= i;
+    app.innerHTML = `
+      <span class="step">Prueba ${i} de ${N}</span>
+      <h1>${p.titulo}</h1>
+      <div class="content">
+        ${p.enunciado}
+        ${p.imagen ? `<img src="${esc(p.imagen)}" alt="">` : ""}
+      </div>
+      <div id="zona"></div>`;
+
+    const zona = document.getElementById("zona");
+
+    const mostrarSiguiente = (animar) => {
+      zona.innerHTML = `
+        <div class="solved">✔ ¡Correcto!</div>
+        <div class="next"><small>${i === N ? "Última pista" : "Siguiente pista"}</small><p>${p.siguiente}</p></div>`;
+      if (animar) confeti(1200);
+    };
+
+    if (resuelta) { mostrarSiguiente(false); return; }
+
+    zona.innerHTML = `
+      <form id="f" autocomplete="off">
+        <input id="r" placeholder="Tu respuesta" autocapitalize="off" autocorrect="off" spellcheck="false">
+        <button type="submit">Comprobar</button>
+        <div class="msg" id="msg"></div>
+      </form>
+      <div id="ayudaZona"></div>`;
+
+    const f = document.getElementById("f");
+    const input = document.getElementById("r");
+    const msg = document.getElementById("msg");
+    const fallos = ["Mmm… no 🙈", "Casi… o no 😅", "Prueba otra vez 💭", "¡Tú puedes! 💪"];
+    let nf = 0;
+
+    f.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const ok = p.respuestas.some(r => normalizar(r) === normalizar(input.value));
+      if (ok) {
+        setProgreso(i);
+        input.blur();
+        mostrarSiguiente(true);
+      } else {
+        msg.textContent = fallos[nf++ % fallos.length];
+        f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");
+      }
+    });
+
+    // botón de ayuda temporizado
+    const kInicio = "juego-cumple-inicio-" + i;
+    let t0 = store.get(kInicio, null);
+    if (!t0) { t0 = Date.now(); store.set(kInicio, t0); }
+    const espera = Math.max(0, (J.minutosAyuda || 3) * 60000 - (Date.now() - t0));
+    if (p.ayuda) setTimeout(() => {
+      const az = document.getElementById("ayudaZona");
+      if (!az) return;
+      az.innerHTML = `<button class="ghost" id="bAyuda" style="width:100%;margin-top:10px">Necesito ayuda 🆘</button>`;
+      document.getElementById("bAyuda").onclick = () => {
+        az.innerHTML = `<div class="help">💡 ${p.ayuda}</div>`;
+      };
+    }, espera);
+  }
+
+  function pantallaFinal() {
+    const F = J.final;
+    app.innerHTML = `
+      <div class="emoji">🎂</div>
+      <h1 class="center">${F.titulo}</h1>
+      <div class="content">${F.mensaje}</div>
+      <div class="media">
+        ${F.video ? `<video src="${esc(F.video)}" controls playsinline></video>` : ""}
+      </div>
+      ${F.fotos && F.fotos.length ? `<div class="gallery">${F.fotos.map(s => `<img src="${esc(s)}" alt="" loading="lazy">`).join("")}</div>` : ""}`;
+    confeti(5000);
+  }
+
+  // ---------- confeti ----------
+  function confeti(ms) {
+    const cv = document.getElementById("confetti");
+    const ctx = cv.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
+    const resize = () => { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; };
+    resize();
+    const colores = ["#e8486c", "#f6a33a", "#ffd166", "#7bdff2", "#b388eb", "#ffffff"];
+    const piezas = Array.from({ length: 140 }, () => ({
+      x: Math.random() * cv.width,
+      y: -Math.random() * cv.height * 0.5,
+      w: (6 + Math.random() * 6) * dpr,
+      h: (8 + Math.random() * 10) * dpr,
+      vy: (2 + Math.random() * 3) * dpr,
+      vx: (Math.random() - 0.5) * 2 * dpr,
+      rot: Math.random() * Math.PI,
+      vr: (Math.random() - 0.5) * 0.2,
+      c: colores[Math.floor(Math.random() * colores.length)],
+    }));
+    const fin = performance.now() + ms;
+    (function frame(t) {
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      let vivas = 0;
+      for (const p of piezas) {
+        p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        if (p.y > cv.height && t < fin) { p.y = -20; p.x = Math.random() * cv.width; }
+        if (p.y < cv.height + 20) vivas++;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
+      }
+      if (vivas) requestAnimationFrame(frame); else ctx.clearRect(0, 0, cv.width, cv.height);
+    })(performance.now());
+  }
+
+  // ---------- router ----------
+  estrellas();
+  const raw = (params.get("p") || "0").toLowerCase();
+  const n = raw === "final" ? N + 1 : parseInt(raw, 10);
+
+  if (isNaN(n) || n < 0 || n > N + 1) { bloqueado(); return; }
+
+  if (n === 0) return pantallaInicio();
+  if (!DEV && progreso() < n - 1) return bloqueado();
+  if (n === N + 1) return pantallaFinal();
+  pantallaPrueba(n);
+})();
+</script>
+</body>
+</html>

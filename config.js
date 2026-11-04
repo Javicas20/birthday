@@ -56,13 +56,13 @@ window.JUEGO = {
   pruebas: [
     {
       porcentaje: 90,
-      titulo: "El grillo del salón",
+      titulo: "El grillo en el pozo",
       enunciado: `
-        <p>Dicen que si cuentas cuántas veces canta un grillo en <strong>14 segundos</strong>
-        y le sumas <strong>40</strong>, sabes la temperatura en grados Fahrenheit.</p>
-        <p>El grillo de nuestro salón cantó <strong>30 veces</strong>. ¿Qué temperatura hacía?</p>
+        <p>Un grillo cae a un pozo de <strong>10 metros</strong>.
+        Cada día sube <strong>3 metros</strong>, pero cada noche resbala <strong>2</strong>.</p>
+        <p>¿Cuántos días tarda en salir? 🦗</p>
       `,
-      respuestas: ["70", "setenta", "70f", "70 f", "70 grados", "70 fahrenheit", "70 grados fahrenheit"],
+      respuestas: ["8", "ocho", "8 dias", "ocho dias", "el octavo", "el dia 8", "octavo"],
       siguiente: "El Everest es la montaña más grande del mundo. Para seguir, tendrás que encontrar la forma de derretirla. 🏔️",
     },
     {

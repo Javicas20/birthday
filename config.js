@@ -63,7 +63,7 @@ window.JUEGO = {
         <p>El grillo de nuestro salón cantó <strong>30 veces</strong>. ¿Qué temperatura hacía?</p>
       `,
       respuestas: ["70", "setenta", "70f", "70 f", "70 grados", "70 fahrenheit", "70 grados fahrenheit"],
-      siguiente: "Tenemos lengua pero no hablamos, ojos pero no vemos, y siempre vamos en pareja. 👀",
+      siguiente: "El Everest es la montaña más grande del mundo. Para seguir, tendrás que encontrar la forma de derretirla. 🏔️",
     },
     {
       porcentaje: 75,

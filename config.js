@@ -20,7 +20,7 @@
 //    cifrado    -> opcional: mensaje cifrado en fichas, ej. "CBKP MB"
 //    pila       -> opcional: filas de fichas apiladas, ej. ["1","11","?"]
 //    respuestas -> formas válidas (da igual mayúsculas, tildes y espacios)
-//    siguiente  -> opcional: texto propio tras acertar (si no, «Busca la siguiente pegatina»)
+//    siguiente  -> adivinanza que indica dónde está la SIGUIENTE pegatina
 // ============================================================
 
 window.JUEGO = {
@@ -63,12 +63,14 @@ window.JUEGO = {
         <p>El grillo de nuestro salón cantó <strong>30 veces</strong>. ¿Qué temperatura hacía?</p>
       `,
       respuestas: ["70", "setenta", "70f", "70 f", "70 grados", "70 fahrenheit", "70 grados fahrenheit"],
+      siguiente: "Tenemos lengua pero no hablamos, ojos pero no vemos, y siempre vamos en pareja. 👀",
     },
     {
       porcentaje: 75,
       titulo: "Ojo con la trampa",
       enunciado: "<p>¿Cuántos meses del año tienen <strong>28 días</strong>?</p>",
       respuestas: ["12", "doce", "todos", "todos los meses"],
+      siguiente: "Cada mañana me llenas, me vacías a sorbos y, aunque me quemo, nunca me quejo.",
     },
     {
       porcentaje: 60,
@@ -76,12 +78,14 @@ window.JUEGO = {
       enunciado: "<p>¿Qué letra sigue?</p>",
       serie: ["L", "M", "X", "J", "V", "?"],
       respuestas: ["s", "sabado"],
+      siguiente: "Si me miras, te miro. Si te ríes, me río. Si te vas, desaparezco.",
     },
     {
       porcentaje: 45,
       titulo: "Juego de palabras",
       enunciado: "<p>¿Qué palabra se escribe siempre <strong>MAL</strong>?</p>",
       respuestas: ["mal"],
+      siguiente: "De día me olvidas, de noche me abrazas, y guardo todos tus sueños sin contar ninguno.",
     },
     {
       porcentaje: 30,
@@ -93,6 +97,7 @@ window.JUEGO = {
         <div class="eq pregunta"><span>🍕</span><b>+</b><span>🍔</span><b>×</b><span>🍦</span><b>=</b><i>?</i></div>
       `,
       respuestas: ["17", "diecisiete"],
+      siguiente: "Me aplastas cuando ves series y me abrazas cuando la película da miedo.",
     },
     {
       porcentaje: 15,
@@ -100,6 +105,7 @@ window.JUEGO = {
       enunciado: "<p>¿Qué letra sigue?</p>",
       serie: ["U", "D", "T", "C", "C", "S", "S", "?"],
       respuestas: ["o", "ocho"],
+      siguiente: "Siempre llegamos de dos en dos, pero la lavadora siempre se come a uno.",
     },
     {
       porcentaje: 5,
@@ -110,6 +116,7 @@ window.JUEGO = {
       `,
       cifrado: "UF RVJFSP SBUJOB",
       respuestas: ["te quiero ratina"],
+      siguiente: "Bebo sin tener boca y crezco sin moverme. Si te olvidas de mí, me pongo triste.",
     },
     {
       porcentaje: 1,
@@ -117,6 +124,7 @@ window.JUEGO = {
       enunciado: "<p>¿Qué número sigue?</p>",
       pila: ["1", "11", "21", "1211", "111221", "?"],
       respuestas: ["312211"],
+      siguiente: "Duermo a tu lado, sujeto lo que lees antes de soñar y guardo secretos en mis cajones.",
     },
   ],
 

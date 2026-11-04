@@ -698,7 +698,7 @@
     const zona = document.getElementById("zona");
     const pintaSiguiente = (de) => {
       zona.innerHTML = `<div class="acertada">Respuesta correcta</div>` +
-        cartaHTML(i === N ? "Última pregunta superada" : "Siguiente pegatina", p.siguiente || (i === N ? (J.textoUltima || "Ya solo te queda encontrar la felicitación. ¡Búscala! 🎁") : (J.textoSiguiente || "Busca la siguiente pegatina por la casa 🐾")));
+        cartaHTML(i === N ? "Pista para encontrar tu felicitación" : "Pista para la siguiente pegatina", p.siguiente || (i === N ? (J.textoUltima || "Ya solo te queda encontrar la felicitación. ¡Búscala! 🎁") : (J.textoSiguiente || "Busca la siguiente pegatina por la casa 🐾")));
     };
 
     if (resuelta) {

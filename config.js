@@ -193,7 +193,7 @@ window.JUEGO = {
       `,
       hojas: ["1", "11", "21", "1211", "111221", "?"],
       respuestas: ["312211"],
-      siguiente: "Duermo a tu lado, sujeto lo que lees antes de soñar y guardo secretos en mis cajones.",
+      siguiente: "Ve a donde cada mañana un pequeño ruiseñor da su concierto… y no siempre por la boca. 🎶",
     },
   ],
 

@@ -27,7 +27,7 @@ window.JUEGO = {
   nombre: "pequeña ratina",
 
   // Los presentadores del concurso
-  presentadores: { perro: "Toby", gato: "Luna" },
+  presentadores: { perro: "Barceló", gato: "Coca Cola" },
 
   mensajeBloqueado: "{gato} se ha dormido encima de esta pregunta. Resuelve antes la anterior y vuelve.",
 
@@ -42,8 +42,14 @@ window.JUEGO = {
       <p>Cada pregunta está en una pegatina escondida. Acerca la parte de arriba del móvil
       y toca la notificación que aparece.</p>
     `,
-    saludoPerro: "¡Hola, {nombre}! Soy {perro} 🐶",
-    saludoGato: "Y yo, {gato}. Hoy presentamos nosotros 😼",
+    // Conversación de presentación (quien: "perro" o "gato"; animo: feliz, piensa, no, baila…)
+    dialogo: [
+      { quien: "perro", texto: "¡Hola, {nombre}! Soy {perro}, el presentador más guapo de la tele 🐶", animo: "feliz" },
+      { quien: "gato", texto: "Y yo, {gato}. La que de verdad manda aquí 😼", animo: "piensa" },
+      { quien: "perro", texto: "Por separado estamos bien…" },
+      { quien: "gato", texto: "…pero juntos somos la mejor mezcla 🥃", animo: "feliz" },
+      { quien: "perro", texto: "Esta noche presentamos El 1%. ¿Estás preparada? 🎬", animo: "feliz" },
+    ],
     // Lo que aparece al pulsar «Empezar el juego»
     buscarTitulo: "Para encontrar la primera pegatina",
     buscar: "Fue la conciencia de una marioneta con la nariz muy larga. 🤥",

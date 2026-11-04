@@ -655,10 +655,24 @@
       <p class="leyenda">Porcentaje de gente que acierta cada pregunta.</p>
       <div id="zona"><button class="boton empezar" id="empezar" type="button">Empezar el juego</button></div>`;
 
-    setTimeout(() => { animo("perro", "feliz", 1200); dice("perro", I.saludoPerro || "¡Hola, {nombre}! Soy {perro} 🐶", 3200); }, 500);
-    setTimeout(() => { animo("gato", "piensa", 2600); dice("gato", I.saludoGato || "Y yo, {gato}. Hoy presentamos nosotros 😼", 3600); }, 3900);
+    // conversación de presentación entre los dos presentadores
+    const guion = I.dialogo || [
+      { quien: "perro", texto: I.saludoPerro || "¡Hola, {nombre}! Soy {perro} 🐶", animo: "feliz" },
+      { quien: "gato", texto: I.saludoGato || "Y yo, {gato}. Hoy presentamos nosotros 😼", animo: "piensa" },
+    ];
+    let enEscena = true, tGuion = 500;
+    guion.forEach((l) => {
+      const dur = Math.max(2600, Math.min(5200, 1400 + t(l.texto).length * 45));
+      setTimeout(() => {
+        if (!enEscena) return;
+        animo(l.quien, l.animo || "idle", l.animo ? Math.min(dur, 2200) : 0);
+        dice(l.quien, l.texto, dur - 250);
+      }, tGuion);
+      tGuion += dur + 150;
+    });
 
     document.getElementById("empezar").onclick = () => {
+      enEscena = false;
       sAcierto();
       animo("perro", "feliz", 1400); animo("gato", "feliz", 1400);
       dice("perro", "¡Que empiece el juego! 🎬", 3000);

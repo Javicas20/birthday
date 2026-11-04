@@ -162,7 +162,7 @@ window.JUEGO = {
         <p style="margin-top:14px">¿Qué número hay debajo del coche?</p>
       `,
       respuestas: ["87", "ochenta y siete"],
-      siguiente: "Siempre llegamos de dos en dos, pero la lavadora siempre se come a uno.",
+      siguiente: "Soy un baile en fila, pero en esta casa no tengo pies. 💃",
     },
     {
       porcentaje: 5,

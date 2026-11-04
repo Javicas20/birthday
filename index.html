@@ -659,7 +659,7 @@
       sAcierto();
       animo("perro", "feliz", 1400); animo("gato", "feliz", 1400);
       dice("perro", "¡Que empiece el juego! 🎬", 3000);
-      document.getElementById("zona").innerHTML = cartaHTML("Empieza la búsqueda", I.buscar || "Busca la primera pegatina por la casa 🐾");
+      document.getElementById("zona").innerHTML = cartaHTML(I.buscarTitulo || "Empieza la búsqueda", I.buscar || "Busca la primera pegatina por la casa 🐾");
       lluvia(70, 900);
       document.querySelector(".carta").scrollIntoView({ behavior: QUIETO ? "auto" : "smooth", block: "center" });
     };

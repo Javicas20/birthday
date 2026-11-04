@@ -44,7 +44,9 @@ window.JUEGO = {
     `,
     saludoPerro: "¡Hola, {nombre}! Soy {perro} 🐶",
     saludoGato: "Y yo, {gato}. Hoy presentamos nosotros 😼",
-    buscar: "Busca la primera pegatina por la casa 🐾",
+    // Lo que aparece al pulsar «Empezar el juego»
+    buscarTitulo: "Para encontrar la primera pegatina",
+    buscar: "Fue la conciencia de una marioneta con la nariz muy larga, y se ha colado dos veces en nuestro salón. ¿Quién es? 🤥",
   },
 
   // Texto que aparece al acertar cada pregunta
@@ -54,10 +56,13 @@ window.JUEGO = {
   pruebas: [
     {
       porcentaje: 90,
-      titulo: "Para calentar",
-      enunciado: "<p>¿Qué letra sigue?</p>",
-      serie: ["E", "F", "M", "A", "M", "J", "J", "?"],
-      respuestas: ["a", "agosto"],
+      titulo: "El grillo del salón",
+      enunciado: `
+        <p>Dicen que si cuentas cuántas veces canta un grillo en <strong>14 segundos</strong>
+        y le sumas <strong>40</strong>, sabes la temperatura en grados Fahrenheit.</p>
+        <p>El grillo de nuestro salón cantó <strong>30 veces</strong>. ¿Qué temperatura hacía?</p>
+      `,
+      respuestas: ["70", "setenta", "70f", "70 f", "70 grados", "70 fahrenheit", "70 grados fahrenheit"],
     },
     {
       porcentaje: 75,

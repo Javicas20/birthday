@@ -127,7 +127,7 @@ window.JUEGO = {
       `,
       palabras: ["Planeador", "Accio", "Tormenta", "Llama", "Morsmordre", "Obliviate", "Escudo", "Riddikulus"],
       respuestas: ["amor", "el amor"],
-      siguiente: "Me aplastas cuando ves series y me abrazas cuando la película da miedo.",
+      siguiente: "Doy más vueltas que tú buscando pegatinas, me trago calcetines y de mí nace el Everest. 🌀",
     },
     {
       porcentaje: 15,

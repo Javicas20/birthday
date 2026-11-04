@@ -200,9 +200,30 @@ window.JUEGO = {
   final: {
     titulo: "¡Estás en el 1%!",
     mensaje: `
-      <p>¡Feliz cumpleaños, {nombre}!</p>
-      <p>[Tu felicitación aquí]</p>
-      <p>Te quiero,<br>[Tu nombre]</p>
+      <p>WIWIWIWIW, ¡lo resolviste todo! Espero que te haya gustado este pequeño juego para
+      descubrir esta «humilde» (como yo, jeje, NO) felicitación.</p>
+      <p>Muchísimas felicidades, pequeño ratoncito chiquitísimo, porque todos sabemos que eres
+      muy pequeño, prácticamente minúsculo.</p>
+      <p>Este tamaño empieza a crecer, como la costilla de Adán, cuando empezamos a hablar de ti.
+      Estás obsesionada siempre con qué pasará con nosotros dentro de unos años, y lo mejor que
+      pasará siempre será compartir nuestro tiempo juntos. Esa incertidumbre que muchas veces te
+      complica la existencia… el mejor «seguro» sobre lo que pasará siempre será mirar al lado de
+      la cama, cuando este pequeño ruiseñor se esté tirando unos peditos para despertarte.</p>
+      <p>Nos obsesionamos muchas veces con cosas que no podemos controlar, y hoy yo vengo a darle
+      importancia al crecimiento, tanto de nuestra relación como al tuyo personal. Creo que me
+      encontré una pequeña costilla de Adán con muchas heridas por diversos motivos, y ahora mismo,
+      después de este viaje que estamos compartiendo, me encuentro una radiante, con otro brillo,
+      hojas nuevas y un montón de buenas actitudes. Estamos creciendo cada día que pasamos juntos,
+      y ese siempre fue mi objetivo: poder crecer, mejorar y reírnos.</p>
+      <p>No sé adónde vamos, pero… ¡que no!, que este año no te la voy a repetir, porque yo ya sé
+      adónde vamos: a reírnos. Sabemos los dos de sobra las cosas que pasan en la vida, y no hay
+      nada más curativo que tener un lugar donde siempre se encuentre una pequeña risa.</p>
+      <p>Hoy también quiero darte las gracias por hacerme mejor persona, por «enseñarme» a querer
+      y por ver otros puntos de vista sobre lo que es el amor. (Prácticamente ahora soy gay)</p>
+      <p>Vamos a seguir luchando para que esto siga funcionando. No vamos a pensar en lo que pasará
+      o no pasará: disfrutemos de nuestro viaje, porque todos sabemos que no hay mejor mezcla que
+      un buen Barceló con Coca Cola. 🥃</p>
+      <p><strong>¡Te quiero mucho!</strong></p>
     `,
     fotos: [], // ej: ["img/foto1.jpg", "img/foto2.jpg"]
     video: "", // ej: "video/felicitacion.mp4"

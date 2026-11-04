@@ -115,18 +115,18 @@ window.JUEGO = {
         de la hora real. ¿A qué hora empieza?</p>
       `,
       respuestas: ["10:10", "22:10", "10.10", "22.10", "10 10", "las 10:10", "las diez y diez", "diez y diez", "10 y 10", "las 10 y 10", "22h10", "10h10"],
-      siguiente: "De día me olvidas, de noche me abrazas, y guardo todos tus sueños sin contar ninguno.",
+      siguiente: "Lumos. Busca la luz azul que se enciende antes de cada batalla. 🪄",
     },
     {
       porcentaje: 30,
-      titulo: "Matemáticas con hambre",
+      titulo: "El Sombrero se ha liado",
       enunciado: `
-        <div class="eq"><span>🍕</span><b>+</b><span>🍕</span><b>=</b><i>10</i></div>
-        <div class="eq"><span>🍕</span><b>+</b><span>🍔</span><b>=</b><i>8</i></div>
-        <div class="eq"><span>🍔</span><b>×</b><span>🍦</span><b>=</b><i>12</i></div>
-        <div class="eq pregunta"><span>🍕</span><b>+</b><span>🍔</span><b>×</b><span>🍦</span><b>=</b><i>?</i></div>
+        <p>El Sombrero Seleccionador ha mezclado palabras de <strong>Hogwarts</strong>
+        y de <strong>Fortnite</strong>. 🎩</p>
+        <p>Quédate solo con los <strong>hechizos</strong> y lee sus iniciales.</p>
       `,
-      respuestas: ["17", "diecisiete"],
+      palabras: ["Planeador", "Accio", "Tormenta", "Llama", "Morsmordre", "Obliviate", "Escudo", "Riddikulus"],
+      respuestas: ["amor", "el amor"],
       siguiente: "Me aplastas cuando ves series y me abrazas cuando la película da miedo.",
     },
     {

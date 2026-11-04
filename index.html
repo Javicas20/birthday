@@ -220,6 +220,8 @@
     animation: voltea .55s cubic-bezier(.3, 1.4, .5, 1) both;
   }
   .pila .ficha, .palabra .ficha { width: 34px; height: 44px; font-size: 22px; }
+  .chips { gap: 8px; }
+  .ficha.chip { width: auto; height: auto; padding: 10px 14px; font-size: 18px; font-weight: 700; letter-spacing: -.01em; border-radius: 12px; }
   .ficha.incognita { background: var(--hocico); color: #fff; box-shadow: 0 3px 0 #c2446a; }
   .ficha.incognita span { animation: latido 1.4s ease-in-out infinite; display: block; }
   @keyframes voltea { from { transform: rotateX(-95deg); opacity: 0; } }
@@ -596,6 +598,7 @@
       const s = `<span class="ficha${c === "?" ? " incognita" : ""}" style="animation-delay:${(d++) * 70}ms"><span>${c}</span></span>`;
       return s;
     };
+    if (p.palabras) return `<div class="fichas chips">${p.palabras.map(w => `<span class="ficha chip" style="animation-delay:${(d++) * 80}ms">${w}</span>`).join("")}</div>`;
     if (p.serie) return `<div class="fichas serie" style="--n:${p.serie.length}">${p.serie.map(ficha).join("")}</div>`;
     if (p.cifrado) return `<div class="fichas">${p.cifrado.split(" ").map(w => `<div class="palabra">${[...w].map(ficha).join("")}</div>`).join("")}</div>`;
     if (p.pila) return `<div class="fichas pila">${p.pila.map(fila => `<div class="fila">${[...String(fila)].map(ficha).join("")}</div>`).join("")}</div>`;

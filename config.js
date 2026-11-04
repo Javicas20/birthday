@@ -1,48 +1,57 @@
 // ============================================================
-//  CONFIGURACIÓN DEL JUEGO — tema "El 1%"
+//  CONFIGURACIÓN DEL JUEGO — "El 1%"
 //  Solo tienes que editar este archivo. No hace falta tocar index.html.
 //
 //  Cada pegatina NFC abre:  https://javicas20.github.io/birthday/?p=N
-//    ?p=0           -> carta de inicio (reglas + primera pista)
+//    ?p=0           -> inicio (presentación + primera pista)
 //    ?p=1 ... ?p=8  -> cada pregunta
 //    ?p=final       -> felicitación
 //
-//  Utilidades para probar:
-//    ?p=3&dev=1     -> entra a cualquier pantalla saltándose el bloqueo
+//  Para probar:
+//    ?p=3&dev=1     -> entra a cualquier pantalla sin bloqueo
 //    ?reset=1       -> borra el progreso guardado en el móvil
 //
-//  Campos de cada prueba:
-//    porcentaje -> % de gente que la acierta (se muestra como etiqueta)
-//    respuestas -> todas las formas válidas (da igual mayúsculas/tildes)
-//    ayuda      -> aparece tras "minutosAyuda" minutos
+//  En cualquier texto puedes usar {nombre}, {perro} y {gato}.
+//
+//  Campos de cada pregunta:
+//    porcentaje -> % de gente que la acierta (marcador circular)
+//    enunciado  -> texto de la pregunta (admite HTML)
+//    serie      -> opcional: fichas en fila, ej. ["L","M","?"]
+//    cifrado    -> opcional: mensaje cifrado en fichas, ej. "CBKP MB"
+//    pila       -> opcional: filas de fichas apiladas, ej. ["1","11","?"]
+//    respuestas -> formas válidas (da igual mayúsculas, tildes y espacios)
+//    ayuda      -> se desbloquea pasados "minutosAyuda" minutos
 //    siguiente  -> pista del escondite de la SIGUIENTE pegatina
 // ============================================================
 
 window.JUEGO = {
   nombre: "[Su nombre]",
+
+  // Los presentadores del concurso
+  presentadores: { perro: "Toby", gato: "Luna" },
+
   minutosAyuda: 3,
-  mensajeBloqueado: "Esta pegatina aún no toca 👀 Vuelve a la pregunta anterior.",
+  mensajeBloqueado: "{gato} se ha dormido encima de esta pregunta. Resuelve antes la anterior y vuelve.",
 
   inicio: {
-    titulo: "Bienvenida a El 1% 🧠",
+    antetitulo: "Esta noche, en el plató",
+    titulo: "Bienvenida a El 1%",
     texto: `
-      <p>Feliz cumpleaños, [Su nombre]. Tu felicitación está escondida por la casa,
-      y solo la encontrará alguien que esté en el <strong>1%</strong>.</p>
-      <p>Hay <strong>8 preguntas</strong>. La primera la acierta casi todo el mundo.
-      La última, solo el 1%.</p>
-      <p>Cada pregunta está en una pegatina escondida. Acerca la <strong>parte de arriba
-      del móvil</strong> y toca la notificación que aparece.</p>
-      <p>Si aciertas, te digo dónde está la siguiente. Si te atascas, a los pocos minutos
-      aparecerá un botón de ayuda.</p>
+      <p>Feliz cumpleaños, {nombre}. Tu felicitación está escondida en casa y solo
+      la encontrará alguien que esté en el 1%.</p>
+      <p>La primera pregunta la acierta casi todo el mundo. La última, casi nadie.</p>
     `,
+    saludoPerro: "¡Hola, {nombre}! Soy {perro} 🐶",
+    saludoGato: "Y yo, {gato}. Hoy presentamos nosotros 😼",
     siguiente: "Guardo historias pero no hablo. Busca la que más te ha hecho llorar. 📚",
   },
 
   pruebas: [
     {
       porcentaje: 90,
-      titulo: "Calentamiento",
-      enunciado: "<p>¿Qué letra sigue?</p><p class='grande mono'>E · F · M · A · M · J · J · ?</p>",
+      titulo: "Para calentar",
+      enunciado: "<p>¿Qué letra sigue?</p>",
+      serie: ["E", "F", "M", "A", "M", "J", "J", "?"],
       respuestas: ["a", "agosto"],
       ayuda: "Piensa en el calendario 📅",
       siguiente: "Donde descansan tus sueños… pero por debajo. 🛏️",
@@ -52,15 +61,16 @@ window.JUEGO = {
       titulo: "Ojo con la trampa",
       enunciado: "<p>¿Cuántos meses del año tienen <strong>28 días</strong>?</p>",
       respuestas: ["12", "doce", "todos", "todos los meses"],
-      ayuda: "No pregunto cuáles tienen <em>solo</em> 28 días 😉",
+      ayuda: "No te pregunto cuáles tienen <em>solo</em> 28 días 😉",
       siguiente: "Te sigo a todas partes, pero solo de día. 👟",
     },
     {
       porcentaje: 60,
       titulo: "Otra serie",
-      enunciado: "<p>¿Qué letra sigue?</p><p class='grande mono'>L · M · X · J · V · ?</p>",
+      enunciado: "<p>¿Qué letra sigue?</p>",
+      serie: ["L", "M", "X", "J", "V", "?"],
       respuestas: ["s", "sabado"],
-      ayuda: "Lo usas en la agenda cada semana 🗓️",
+      ayuda: "Lo miras en la agenda cada semana 🗓️",
       siguiente: "Por las mañanas me abrazas antes que a mí. ☕",
     },
     {
@@ -68,29 +78,29 @@ window.JUEGO = {
       titulo: "Juego de palabras",
       enunciado: "<p>¿Qué palabra se escribe siempre <strong>MAL</strong>?</p>",
       respuestas: ["mal"],
-      ayuda: "Léete la pregunta otra vez, muy despacio 🔍",
+      ayuda: "Vuelve a leer la pregunta, muy despacio 🔍",
       siguiente: "Te reflejo cada mañana. 🪞",
     },
     {
       porcentaje: 30,
       titulo: "Matemáticas con hambre",
       enunciado: `
-        <p class='grande'>🍕 + 🍕 = 10</p>
-        <p class='grande'>🍕 + 🍔 = 8</p>
-        <p class='grande'>🍔 × 🍦 = 12</p>
-        <p>¿Cuánto es…?</p>
-        <p class='grande'>🍕 + 🍔 × 🍦 = ?</p>
+        <div class="eq"><span>🍕</span><b>+</b><span>🍕</span><b>=</b><i>10</i></div>
+        <div class="eq"><span>🍕</span><b>+</b><span>🍔</span><b>=</b><i>8</i></div>
+        <div class="eq"><span>🍔</span><b>×</b><span>🍦</span><b>=</b><i>12</i></div>
+        <div class="eq pregunta"><span>🍕</span><b>+</b><span>🍔</span><b>×</b><span>🍦</span><b>=</b><i>?</i></div>
       `,
       respuestas: ["17", "diecisiete"],
-      ayuda: "En matemáticas, ¿qué se hace antes: sumar o multiplicar? ✖️",
+      ayuda: "En matemáticas, ¿qué va antes: sumar o multiplicar? ✖️",
       siguiente: "Sin mí no hay sofá que valga. 🛋️",
     },
     {
       porcentaje: 15,
       titulo: "La serie misteriosa",
-      enunciado: "<p>¿Qué letra sigue?</p><p class='grande mono'>U · D · T · C · C · S · S · ?</p>",
+      enunciado: "<p>¿Qué letra sigue?</p>",
+      serie: ["U", "D", "T", "C", "C", "S", "S", "?"],
       respuestas: ["o", "ocho"],
-      ayuda: "Cuenta con los dedos… y di los números en voz alta 🔢",
+      ayuda: "Cuenta en voz alta… 🔢",
       siguiente: "Lo que guardo te calienta los pies. 🧦",
     },
     {
@@ -98,35 +108,32 @@ window.JUEGO = {
       titulo: "Documento secreto",
       enunciado: `
         <p>Has interceptado este mensaje cifrado. Cada letra está
-        <strong>una posición adelantada</strong> en el abecedario.</p>
-        <p class='grande mono'>CBKP MB BMGPNCSB</p>
-        <p>Descífralo y escríbelo aquí.</p>
+        <strong>una posición adelantada</strong> en el abecedario. Descífralo.</p>
       `,
+      cifrado: "CBKP MB BMGPNCSB",
       respuestas: ["bajo la alfombra", "debajo de la alfombra", "alfombra", "la alfombra"],
       ayuda: "La C es en realidad una B, la B es una A… 🔐",
-      siguiente: "¡Ya sabes dónde buscar! El mensaje secreto te lo acaba de decir. 😉",
+      siguiente: "El mensaje secreto ya te ha dicho dónde buscar. 😉",
     },
     {
       porcentaje: 1,
       titulo: "La pregunta del 1%",
-      enunciado: `
-        <p>Solo el 1% lo acierta. ¿Qué número sigue?</p>
-        <p class='grande mono'>1<br>11<br>21<br>1211<br>111221<br>?</p>
-      `,
+      enunciado: "<p>¿Qué número sigue?</p>",
+      pila: ["1", "11", "21", "1211", "111221", "?"],
       respuestas: ["312211"],
-      ayuda: "No sumes nada: lee cada número en voz alta… describiendo el de arriba. «Un 1» → 11 🗣️",
+      ayuda: "No sumes nada. Lee cada fila en voz alta describiendo la de arriba: «un 1» → 11 🗣️",
       siguiente: "Estás en el 1%. Tu premio te espera en tu mesita de noche. 🎁",
     },
   ],
 
   final: {
-    titulo: "¡Estás en el 1%! 🎉",
+    titulo: "¡Estás en el 1%!",
     mensaje: `
-      <p>¡Feliz cumpleaños, [Su nombre]!</p>
+      <p>¡Feliz cumpleaños, {nombre}!</p>
       <p>[Tu felicitación aquí]</p>
       <p>Te quiero,<br>[Tu nombre]</p>
     `,
     fotos: [], // ej: ["img/foto1.jpg", "img/foto2.jpg"]
-    video: "", // ej: "video/felicitacion.mp4" o vacío
+    video: "", // ej: "video/felicitacion.mp4"
   },
 };

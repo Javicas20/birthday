@@ -4,312 +4,842 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#2a1530">
-<title>🎁</title>
+<meta name="theme-color" content="#1b1446">
+<title>El 1%</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg1: #2a1530;
-    --bg2: #5b2346;
-    --card: #fff8f2;
-    --ink: #2b1d24;
-    --muted: #7c6570;
-    --accent: #e8486c;
-    --accent2: #f6a33a;
-    --ok: #2e9e6b;
-    --radius: 22px;
+    --noche: #1b1446;
+    --noche-2: #2a1f63;
+    --foco: #ffd23f;
+    --foco-osc: #e0ac12;
+    --hocico: #ff6f91;
+    --pelaje: #f29a4a;
+    --menta: #2ee6a6;
+    --papel: #f7f4ff;
+    --tinta: #1d1838;
+    --gris: #6d6790;
+    --linea: #e2dcf5;
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --texto: "Figtree", system-ui, sans-serif;
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; min-height: 100%; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; }
   body {
-    font-family: "Nunito", system-ui, sans-serif;
-    color: var(--ink);
-    background: radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg1));
+    font-family: var(--texto);
+    color: var(--tinta);
     min-height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: max(20px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+    background:
+      radial-gradient(60% 40% at 50% 100%, rgba(255, 111, 145, .18), transparent 70%),
+      radial-gradient(90% 60% at 50% -10%, #3b2c86 0%, var(--noche) 60%);
+    background-color: var(--noche);
     overflow-x: hidden;
+    padding: max(14px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
   }
-  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
-  .stars span {
-    position: absolute; width: 3px; height: 3px; border-radius: 50%;
-    background: #fff; opacity: .5; animation: twinkle 3s infinite ease-in-out;
-  }
-  @keyframes twinkle { 50% { opacity: .1; transform: scale(.6); } }
 
-  .card {
+  /* ---------- focos del plató ---------- */
+  .focos { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .focos i {
+    position: absolute; top: -20%; width: 46vmax; height: 120vh;
+    background: linear-gradient(180deg, rgba(255, 210, 63, .16), rgba(255, 210, 63, 0) 75%);
+    clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+    transform-origin: 50% 0;
+    animation: foco 9s ease-in-out infinite alternate;
+  }
+  .focos i:nth-child(1) { left: -14vmax; transform: rotate(-22deg); }
+  .focos i:nth-child(2) { right: -14vmax; transform: rotate(22deg); animation-delay: -4.5s; }
+  @keyframes foco { from { rotate: -6deg; } to { rotate: 6deg; } }
+
+  /* rastro de huellas que cruza el fondo */
+  .rastro { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .rastro svg {
+    position: absolute; width: 22px; height: 22px; fill: rgba(255, 255, 255, .14);
+    opacity: 0; animation: pisada 3.2s ease-out forwards;
+  }
+  @keyframes pisada { 10% { opacity: 1; } 70% { opacity: 1; } to { opacity: 0; } }
+
+  /* ---------- barra superior ---------- */
+  .barra {
+    position: relative; z-index: 3; max-width: 460px; margin: 0 auto 6px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .logo { display: flex; align-items: baseline; gap: 2px; color: var(--foco); text-decoration: none; }
+  .logo b { font-family: var(--display); font-weight: 800; font-size: 26px; letter-spacing: -.02em; line-height: 1; }
+  .logo svg { width: 22px; height: 27px; translate: 0 3px; }
+  .huellas { display: flex; gap: 3px; align-items: center; }
+  .huellas svg { width: 17px; height: 17px; fill: rgba(255, 255, 255, .16); transition: fill .3s; }
+  .huellas svg.hecha { fill: var(--foco); }
+  .huellas svg.actual { fill: var(--hocico); animation: latido 1.4s ease-in-out infinite; }
+  .huellas svg.pop { animation: pop-huella .6s cubic-bezier(.3, 1.8, .5, 1); }
+  @keyframes latido { 50% { transform: scale(1.25); } }
+  @keyframes pop-huella { 0% { transform: scale(.2) rotate(-40deg); } 100% { transform: scale(1); } }
+  .sonido {
+    border: 0; background: rgba(255, 255, 255, .08); color: #fff; width: 34px; height: 34px;
+    border-radius: 50%; font-size: 15px; cursor: pointer; flex: none;
+  }
+
+  /* ---------- escenario + presentadores ---------- */
+  .escenario { position: relative; z-index: 2; max-width: 460px; margin: 0 auto; padding-top: 148px; }
+  .presentadores { position: absolute; inset: 0 0 auto 0; height: 190px; pointer-events: none; }
+  .host { position: absolute; top: 44px; width: 112px; transition: translate .4s cubic-bezier(.3, 1.6, .5, 1); }
+  .host svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .host-perro { left: 14px; }
+  .host-gato { right: 14px; }
+
+  .host .cabeza { transform-box: view-box; transform-origin: 60px 80px; animation: respira 3.6s ease-in-out infinite; }
+  @keyframes respira { 50% { transform: translateY(1.5px) rotate(-1.5deg); } }
+  .host-gato .cabeza { animation-delay: -1.8s; }
+
+  .ojo-abierto { transform-box: fill-box; transform-origin: center; animation: parpadeo 5s infinite; }
+  .host-gato .ojo-abierto { animation-delay: -2.3s; animation-duration: 6.5s; }
+  @keyframes parpadeo { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.08); } }
+  .ojo-feliz, .ojo-dormido, .lengua, .zzz { opacity: 0; }
+
+  .host-perro .cola { transform-box: view-box; transform-origin: 92px 104px; animation: menear .45s ease-in-out infinite alternate; }
+  @keyframes menear { from { transform: rotate(-14deg); } to { transform: rotate(16deg); } }
+  .host-gato .cola { transform-box: view-box; transform-origin: 88px 114px; animation: balancear 2.6s ease-in-out infinite alternate; }
+  @keyframes balancear { from { transform: rotate(-10deg); } to { transform: rotate(12deg); } }
+  .oreja { transform-box: view-box; transition: transform .35s; }
+  .host-perro .oreja-i { transform-origin: 40px 38px; }
+  .host-perro .oreja-d { transform-origin: 80px 38px; }
+  .host-gato .oreja-i { transform-origin: 46px 40px; }
+  .host-gato .oreja-d { transform-origin: 74px 40px; }
+
+  /* estado: contento */
+  .host[data-animo="feliz"] { animation: salto .55s cubic-bezier(.3, 1.4, .5, 1) 2; }
+  .host[data-animo="feliz"] .ojo-abierto { opacity: 0; }
+  .host[data-animo="feliz"] .ojo-feliz, .host[data-animo="feliz"] .lengua { opacity: 1; }
+  .host-perro[data-animo="feliz"] .cola { animation-duration: .16s; }
+  .host-perro[data-animo="feliz"] .oreja-i { transform: rotate(18deg); }
+  .host-perro[data-animo="feliz"] .oreja-d { transform: rotate(-18deg); }
+  @keyframes salto { 40% { translate: 0 -30px; } 70% { translate: 0 -8px; } }
+
+  /* estado: triste / niega */
+  .host[data-animo="no"] .cabeza { animation: niega .6s ease-in-out 2; }
+  @keyframes niega { 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
+  .host-gato[data-animo="no"] .oreja-i { transform: rotate(-28deg); }
+  .host-gato[data-animo="no"] .oreja-d { transform: rotate(28deg); }
+  .host-perro[data-animo="no"] .oreja-i { transform: rotate(-10deg); }
+  .host-perro[data-animo="no"] .oreja-d { transform: rotate(10deg); }
+  .host-perro[data-animo="no"] .cola { animation-play-state: paused; }
+
+  /* estado: pensando */
+  .host[data-animo="piensa"] .cabeza { animation: ladea 1.8s ease-in-out infinite; }
+  @keyframes ladea { 50% { transform: rotate(9deg); } }
+
+  /* estado: dormido */
+  .host[data-animo="duerme"] .ojo-abierto { opacity: 0; animation: none; }
+  .host[data-animo="duerme"] .ojo-dormido { opacity: 1; }
+  .host[data-animo="duerme"] .cabeza { animation: respira 4.5s ease-in-out infinite; }
+  .host[data-animo="duerme"] .cola { animation-duration: 6s; }
+  .host[data-animo="duerme"] .zzz { opacity: 1; }
+  .zzz { position: absolute; right: 0; top: -6px; font-family: var(--display); font-weight: 800; color: #fff; }
+  .zzz span { position: absolute; animation: zzz 3s ease-in infinite; opacity: 0; }
+  .zzz span:nth-child(2) { animation-delay: 1s; font-size: 20px; }
+  .zzz span:nth-child(3) { animation-delay: 2s; font-size: 26px; }
+  @keyframes zzz { 0% { opacity: 0; transform: translate(0, 0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(22px, -40px); } }
+
+  /* estado: baile (final) */
+  .host[data-animo="baila"] { animation: baile .8s ease-in-out infinite; }
+  .host-gato[data-animo="baila"] { animation-delay: -.4s; }
+  .host[data-animo="baila"] .ojo-abierto { opacity: 0; }
+  .host[data-animo="baila"] .ojo-feliz, .host[data-animo="baila"] .lengua { opacity: 1; }
+  .host-perro[data-animo="baila"] .cola { animation-duration: .16s; }
+  @keyframes baile { 0%, 100% { translate: 0 0; rotate: -6deg; } 50% { translate: 0 -18px; rotate: 6deg; } }
+
+  /* bocadillo */
+  .bocadillo {
+    position: absolute; top: 0; max-width: 74%;
+    background: #fff; color: var(--tinta); border-radius: 18px;
+    padding: 10px 14px; font-weight: 700; font-size: 15px; line-height: 1.35;
+    box-shadow: 0 8px 24px rgba(10, 5, 40, .35);
+    opacity: 0; transform: translateY(8px) scale(.9); transition: opacity .25s, transform .3s cubic-bezier(.3, 1.6, .5, 1);
+  }
+  .bocadillo::after {
+    content: ""; position: absolute; bottom: -9px; width: 18px; height: 18px; background: #fff;
+    border-radius: 0 0 4px 0; transform: rotate(45deg);
+  }
+  .bocadillo[data-lado="perro"] { left: 10px; }
+  .bocadillo[data-lado="perro"]::after { left: 50px; }
+  .bocadillo[data-lado="gato"] { right: 10px; }
+  .bocadillo[data-lado="gato"]::after { right: 50px; }
+  .bocadillo.ver { opacity: 1; transform: none; }
+
+  /* ---------- tarjeta (atril) ---------- */
+  .tarjeta {
     position: relative; z-index: 1;
-    width: 100%; max-width: 440px;
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 28px 24px 26px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.35);
-    animation: pop .5s cubic-bezier(.2,1.4,.4,1) both;
+    background: var(--papel);
+    border-radius: 30px 30px 24px 24px;
+    padding: 26px 22px 24px;
+    box-shadow: 0 -2px 0 rgba(255, 255, 255, .6) inset, 0 24px 60px rgba(8, 3, 40, .55), 0 0 0 6px rgba(255, 210, 63, .12);
   }
-  @keyframes pop { from { opacity: 0; transform: translateY(20px) scale(.96); } }
-  .step {
-    display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--accent); background: #fde6ec;
-    padding: 5px 12px; border-radius: 99px; margin-bottom: 12px;
+  .tarjeta::before {
+    content: ""; position: absolute; left: 22px; right: 22px; top: 0; height: 6px;
+    border-radius: 0 0 6px 6px; background: var(--foco);
   }
-  .top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .top .step { margin-bottom: 0; }
-  .pct { font-size: 14px; color: var(--muted); }
-  .pct strong { color: var(--ink); font-size: 18px; font-family: "Fraunces", serif; }
-  .meter { height: 6px; border-radius: 99px; background: #f1e3e7; overflow: hidden; margin-bottom: 16px; }
-  .meter div { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+  .tarjeta.temblor { animation: temblor .45s; }
+  @keyframes temblor { 20%, 60% { translate: -9px 0; } 40%, 80% { translate: 9px 0; } }
+
+  .cabecera { display: flex; gap: 14px; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .kicker { font-size: 14px; color: var(--gris); font-weight: 500; margin: 0 0 4px; }
   h1 {
-    font-family: "Fraunces", serif; font-weight: 800;
-    font-size: clamp(26px, 7vw, 34px); line-height: 1.1; margin: 0 0 14px;
-  }
-  .content { font-size: 17px; line-height: 1.55; }
-  .content p { margin: 0 0 12px; }
-  .content ol { padding-left: 22px; margin: 0 0 12px; }
-  .content li { margin-bottom: 6px; }
-  .grande { font-size: 30px; text-align: center; letter-spacing: .05em; }
-  .mono { font-family: ui-monospace, Menlo, monospace; font-size: 22px; word-break: break-word; }
-  .content img, .media img, .media video {
-    width: 100%; border-radius: 14px; display: block; margin: 10px 0;
+    font-family: var(--display); font-weight: 800; font-size: clamp(27px, 7.4vw, 34px);
+    line-height: 1.02; letter-spacing: -.025em; margin: 0; text-wrap: balance;
   }
 
-  form { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+  /* marcador de porcentaje */
+  .marcador { position: relative; width: 88px; height: 88px; flex: none; }
+  .marcador svg { width: 100%; height: 100%; rotate: -90deg; }
+  .marcador .pista-aro { stroke: var(--linea); }
+  .marcador .aro { stroke: var(--foco-osc); stroke-linecap: round; transition: stroke-dashoffset 1.3s cubic-bezier(.2, .8, .2, 1); }
+  .marcador .num {
+    position: absolute; inset: 0; display: grid; place-content: center; text-align: center;
+    font-family: var(--display); font-weight: 800; font-size: 27px; letter-spacing: -.03em; line-height: 1;
+  }
+  .marcador .num small { display: block; font-family: var(--texto); font-weight: 500; font-size: 10.5px; color: var(--gris); letter-spacing: 0; margin-top: 2px; }
+
+  .texto { font-size: 17px; line-height: 1.55; max-width: 62ch; }
+  .texto p { margin: 0 0 12px; }
+  .texto p:last-child { margin-bottom: 0; }
+  .texto ol { padding-left: 22px; margin: 0 0 12px; }
+
+  /* fichas de plató */
+  .fichas { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0 4px; perspective: 600px; }
+  .fichas.serie { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 46px)); gap: 6px; }
+  .fichas.serie .ficha { width: auto; aspect-ratio: 4 / 5; height: auto; font-size: clamp(19px, 5.6vw, 25px); }
+  .fichas.pila { flex-direction: column; gap: 6px; }
+  .fila { display: flex; gap: 6px; flex-wrap: wrap; }
+  .palabra { display: flex; gap: 5px; margin-right: 12px; }
+  .ficha {
+    width: 40px; height: 50px; border-radius: 10px; display: grid; place-content: center;
+    background: var(--noche); color: var(--foco);
+    font-family: var(--display); font-weight: 800; font-size: 25px;
+    box-shadow: 0 3px 0 #0e0a2c, 0 0 0 1px rgba(255, 255, 255, .06) inset;
+    animation: voltea .55s cubic-bezier(.3, 1.4, .5, 1) both;
+  }
+  .pila .ficha, .palabra .ficha { width: 34px; height: 44px; font-size: 22px; }
+  .ficha.incognita { background: var(--hocico); color: #fff; box-shadow: 0 3px 0 #c2446a; }
+  .ficha.incognita span { animation: latido 1.4s ease-in-out infinite; display: block; }
+  @keyframes voltea { from { transform: rotateX(-95deg); opacity: 0; } }
+
+  /* ecuación */
+  .eq { display: grid; grid-template-columns: repeat(5, auto); justify-content: start; align-items: center; gap: 4px 12px; margin: 6px 0; font-size: 34px; }
+  .eq b { font-family: var(--display); font-weight: 700; font-size: 26px; color: var(--gris); }
+  .eq i { font-style: normal; font-family: var(--display); font-weight: 800; font-size: 28px; }
+  .eq.pregunta { margin-top: 14px; padding: 10px 14px; border-radius: 16px; background: #fff; border: 2px dashed var(--hocico); width: max-content; max-width: 100%; }
+  .eq.pregunta i { color: var(--hocico); }
+
+  /* formulario */
+  form { margin-top: 20px; display: grid; gap: 10px; }
+  .campo { position: relative; }
   input {
-    font: inherit; font-size: 18px; padding: 14px 16px;
-    border-radius: 14px; border: 2px solid #ead9dd; background: #fff; color: var(--ink);
-    outline: none; transition: border-color .2s;
+    width: 100%; font: inherit; font-size: 19px; font-weight: 500;
+    padding: 16px 18px; border-radius: 16px; border: 2px solid var(--linea); background: #fff; color: var(--tinta);
+    outline: none; transition: border-color .2s, box-shadow .2s;
   }
-  input:focus { border-color: var(--accent); }
-  button {
-    font: inherit; font-weight: 700; font-size: 17px;
-    padding: 14px 16px; border: 0; border-radius: 14px; cursor: pointer;
-    background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff;
-    transition: transform .1s;
+  input:focus { border-color: var(--noche-2); box-shadow: 0 0 0 4px rgba(42, 31, 99, .12); }
+  input.mal { border-color: var(--hocico); }
+  .boton {
+    font: inherit; font-family: var(--display); font-weight: 800; font-size: 19px; letter-spacing: -.01em;
+    padding: 15px 18px; border: 0; border-radius: 16px; cursor: pointer;
+    background: var(--noche); color: var(--foco);
+    box-shadow: 0 5px 0 #0e0a2c; transition: transform .08s, box-shadow .08s;
   }
-  button:active { transform: scale(.97); }
-  button.ghost { background: transparent; color: var(--muted); border: 2px dashed #e3cfd5; }
+  .boton:active { transform: translateY(4px); box-shadow: 0 1px 0 #0e0a2c; }
+  .boton:focus-visible, .sonido:focus-visible, .ayuda-btn:focus-visible { outline: 3px solid var(--hocico); outline-offset: 3px; }
+  .aviso { min-height: 20px; margin: 0; font-size: 15px; font-weight: 700; color: #d0365f; text-align: center; }
 
-  .shake { animation: shake .4s; }
-  @keyframes shake { 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
-  .msg { min-height: 22px; font-size: 15px; color: var(--accent); text-align: center; }
-
-  .next {
-    margin-top: 18px; padding: 18px; border-radius: 16px;
-    background: linear-gradient(135deg, #fff1d6, #ffe0ea);
-    border: 2px solid #f8cdd8; animation: pop .5s both;
+  .ayuda { margin-top: 6px; font-size: 14px; color: var(--gris); display: flex; align-items: center; gap: 8px; justify-content: center; }
+  .ayuda svg { width: 16px; height: 16px; fill: var(--gris); }
+  .ayuda-btn {
+    font: inherit; font-weight: 700; font-size: 15px; color: var(--noche-2); background: transparent;
+    border: 2px dashed #cfc6ee; padding: 10px 14px; border-radius: 14px; cursor: pointer; width: 100%;
   }
-  .next small { display: block; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; margin-bottom: 6px; }
-  .next p { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.4; }
-  .help { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: #f3ecef; color: var(--muted); font-size: 15px; }
-  .solved { color: var(--ok); font-weight: 700; text-align: center; margin-top: 14px; }
-  .center { text-align: center; }
-  .emoji { font-size: 56px; text-align: center; margin-bottom: 6px; }
+  .ayuda-txt { margin-top: 10px; background: #fff; border-left: 4px solid var(--foco); padding: 12px 14px; border-radius: 4px 12px 12px 4px; font-size: 15.5px; line-height: 1.45; }
 
-  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
-  .gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; margin: 0; }
-  .gallery img:first-child:nth-last-child(odd) { grid-column: span 2; aspect-ratio: 16/10; }
+  /* carta con la pista */
+  .carta {
+    position: relative; margin-top: 20px; padding: 22px 20px 20px 20px;
+    background: #fff; border-radius: 18px;
+    border: 2px solid var(--linea);
+    animation: despliega .7s cubic-bezier(.2, .9, .2, 1) both;
+  }
+  @keyframes despliega { from { clip-path: inset(0 0 100% 0 round 18px); transform: translateY(-10px); } to { clip-path: inset(0 0 0 0 round 18px); } }
+  .carta .de { font-size: 14px; color: var(--gris); margin: 0 0 6px; font-weight: 500; padding-right: 64px; }
+  .carta .pista { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1.25; letter-spacing: -.01em; margin: 0; padding-right: 54px; text-wrap: pretty; }
+  .sello {
+    position: absolute; top: -22px; right: 14px; width: 58px; height: 58px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ff8fab, #e0446c 70%);
+    display: grid; place-content: center; box-shadow: 0 4px 0 #b8325a, 0 8px 18px rgba(200, 40, 90, .35);
+    animation: sellar .6s .35s cubic-bezier(.3, 1.7, .5, 1) both;
+  }
+  .sello svg { width: 32px; height: 32px; fill: #fff3f6; }
+  @keyframes sellar { from { transform: scale(2.2) rotate(-35deg); opacity: 0; } }
+  .acertada { display: flex; align-items: center; gap: 8px; margin-top: 18px; font-weight: 700; color: #129a6d; }
+  .acertada::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--menta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='%231d1838' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat; }
 
-  canvas#confetti { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+  /* inicio: escalera de dificultad */
+  .escalera { display: flex; align-items: flex-end; gap: 6px; height: 112px; margin: 18px 0 6px; padding: 0 2px; }
+  .escalon { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+  .escalon div {
+    width: 100%; border-radius: 8px 8px 4px 4px; background: var(--noche-2);
+    transform-origin: bottom; animation: crece .7s cubic-bezier(.3, 1.4, .5, 1) both;
+  }
+  .escalon:last-child div { background: var(--hocico); }
+  .escalon span { font-family: var(--display); font-weight: 700; font-size: 12px; color: var(--gris); }
+  .escalon:last-child span { color: #d0365f; }
+  @keyframes crece { from { transform: scaleY(0); } }
+  .leyenda { font-size: 13.5px; color: var(--gris); margin: 0 0 18px; }
+  .pasos { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 10px; counter-reset: paso; }
+  .pasos li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; font-size: 16px; line-height: 1.45; counter-increment: paso; }
+  .pasos li::before {
+    content: counter(paso); width: 34px; height: 34px; border-radius: 11px; display: grid; place-content: center;
+    background: var(--noche); color: var(--foco); font-family: var(--display); font-weight: 800; font-size: 17px;
+  }
+  .empezar { width: 100%; }
+
+  /* bloqueado */
+  .bloqueo { text-align: center; }
+  .bloqueo h1 { margin-bottom: 10px; }
+  .candado { width: 64px; height: 64px; margin: 4px auto 14px; display: grid; place-content: center; border-radius: 20px; background: var(--noche); }
+  .candado svg { width: 30px; height: 30px; fill: var(--foco); }
+
+  /* final */
+  .final { text-align: center; }
+  .trofeo { position: relative; width: 150px; height: 150px; margin: -6px auto 8px; display: grid; place-content: center; }
+  .trofeo .rayos {
+    position: absolute; inset: 0; border-radius: 50%;
+    background: repeating-conic-gradient(from 0deg, rgba(255, 210, 63, .42) 0 10deg, transparent 10deg 24deg);
+    mask: radial-gradient(circle, #000 30%, transparent 70%); -webkit-mask: radial-gradient(circle, #000 30%, transparent 70%);
+    animation: gira 14s linear infinite;
+  }
+  @keyframes gira { to { rotate: 360deg; } }
+  .trofeo svg { position: relative; width: 100px; height: 100px; animation: aparece 1s .2s cubic-bezier(.3, 1.6, .5, 1) both; }
+  @keyframes aparece { from { transform: scale(0) rotate(-30deg); } }
+  .final .carta { text-align: left; margin-top: 22px; }
+  .final .carta { padding-top: 26px; }
+  .final .carta .mensaje { font-size: 18px; line-height: 1.6; margin: 0; padding-right: 30px; }
+  .final .carta .mensaje p { margin: 0 0 14px; }
+  .final .carta .mensaje p:last-child { margin: 0; }
+  .polaroids { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 22px; }
+  .polaroids figure { margin: 0; background: #fff; padding: 8px 8px 26px; border-radius: 4px; box-shadow: 0 10px 24px rgba(20, 10, 60, .2); width: 46%; animation: cae .7s cubic-bezier(.3, 1.4, .5, 1) both; }
+  .polaroids figure:nth-child(odd) { rotate: -4deg; }
+  .polaroids figure:nth-child(even) { rotate: 3deg; }
+  .polaroids img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 2px; }
+  @keyframes cae { from { transform: translateY(-40px) scale(.8); opacity: 0; } }
+  .final video { width: 100%; border-radius: 16px; margin-top: 20px; display: block; }
+  .otra-vez { margin-top: 22px; width: 100%; }
+
+  canvas#lluvia { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .rastro, .focos { display: none; }
+  }
+  @media (max-width: 370px) {
+    .host { width: 98px; }
+    .marcador { width: 78px; height: 78px; }
+    .marcador .num { font-size: 23px; }
+  }
 </style>
 </head>
 <body>
-<div class="stars" id="stars"></div>
-<main class="card" id="app"></main>
-<canvas id="confetti"></canvas>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="huella" viewBox="0 0 24 24">
+    <ellipse cx="12" cy="16.2" rx="5.6" ry="4.6"/>
+    <ellipse cx="5.2" cy="10.2" rx="2.3" ry="2.8" transform="rotate(-18 5.2 10.2)"/>
+    <ellipse cx="9.4" cy="5.8" rx="2.3" ry="2.9" transform="rotate(-6 9.4 5.8)"/>
+    <ellipse cx="14.6" cy="5.8" rx="2.3" ry="2.9" transform="rotate(6 14.6 5.8)"/>
+    <ellipse cx="18.8" cy="10.2" rx="2.3" ry="2.8" transform="rotate(18 18.8 10.2)"/>
+  </symbol>
+</svg>
+
+<div class="focos" aria-hidden="true"><i></i><i></i></div>
+<div class="rastro" id="rastro" aria-hidden="true"></div>
+
+<header class="barra">
+  <span class="logo" aria-label="El 1%">
+    <b>El 1</b>
+    <svg viewBox="0 0 36 44" aria-hidden="true">
+      <path d="M29 5 L8 40" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <use href="#huella" x="0" y="0" width="16" height="16" fill="currentColor"/>
+      <use href="#huella" x="20" y="27" width="16" height="16" fill="currentColor"/>
+    </svg>
+  </span>
+  <div class="huellas" id="huellas" aria-hidden="true"></div>
+  <button class="sonido" id="sonido" type="button" aria-label="Activar o silenciar sonido">🔊</button>
+</header>
+
+<div class="escenario">
+  <div class="presentadores" aria-hidden="true">
+    <div class="bocadillo" id="bocadillo"></div>
+    <div class="host host-perro" id="perro" data-animo="idle">
+      <svg viewBox="0 0 120 130">
+        <g class="cola"><path d="M92 104 C110 98 114 80 106 70" stroke="#c7803f" stroke-width="9" fill="none" stroke-linecap="round"/></g>
+        <ellipse cx="60" cy="106" rx="32" ry="25" fill="#c7803f"/>
+        <ellipse cx="60" cy="112" rx="17" ry="16" fill="#fff4e6"/>
+        <path d="M38 83 Q60 94 82 83" stroke="#ff6f91" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <circle cx="60" cy="92" r="4.6" fill="#ffd23f"/>
+        <g class="cabeza">
+          <g class="oreja oreja-i"><path d="M38 34 C20 36 15 66 26 80 C35 76 41 60 43 42 Z" fill="#6b3f1f"/></g>
+          <g class="oreja oreja-d"><path d="M82 34 C100 36 105 66 94 80 C85 76 79 60 77 42 Z" fill="#6b3f1f"/></g>
+          <circle cx="60" cy="52" r="28" fill="#c7803f"/>
+          <path d="M60 25 C55 38 52 49 50 60 L70 60 C68 49 65 38 60 25 Z" fill="#fff4e6"/>
+          <ellipse cx="60" cy="66" rx="15.5" ry="11.5" fill="#fff4e6"/>
+          <circle cx="41" cy="63" r="4.5" fill="#ff6f91" opacity=".35"/>
+          <circle cx="79" cy="63" r="4.5" fill="#ff6f91" opacity=".35"/>
+          <g class="ojo-abierto"><circle cx="47" cy="50" r="4.2" fill="#2a1a12"/><circle cx="48.4" cy="48.6" r="1.4" fill="#fff"/></g>
+          <g class="ojo-abierto"><circle cx="73" cy="50" r="4.2" fill="#2a1a12"/><circle cx="74.4" cy="48.6" r="1.4" fill="#fff"/></g>
+          <g class="ojo-feliz" stroke="#2a1a12" stroke-width="2.6" fill="none" stroke-linecap="round"><path d="M42.5 51.5 q4.5 -6 9 0"/><path d="M68.5 51.5 q4.5 -6 9 0"/></g>
+          <g class="ojo-dormido" stroke="#2a1a12" stroke-width="2.6" fill="none" stroke-linecap="round"><path d="M42.5 50 q4.5 4.5 9 0"/><path d="M68.5 50 q4.5 4.5 9 0"/></g>
+          <ellipse class="lengua" cx="60" cy="75" rx="4.4" ry="5.6" fill="#ff6f91"/>
+          <ellipse cx="60" cy="60.5" rx="5.8" ry="4.2" fill="#2a1a12"/>
+          <path d="M60 64.5 v3.5 M60 68 q-4.5 4.5 -8.5 1 M60 68 q4.5 4.5 8.5 1" stroke="#2a1a12" stroke-width="2.1" fill="none" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <div class="host host-gato" id="gato" data-animo="idle">
+      <svg viewBox="0 0 120 130">
+        <g class="cola"><path d="M88 114 C112 110 114 84 100 74" stroke="#f29a4a" stroke-width="8.5" fill="none" stroke-linecap="round"/><path d="M104 79 C107 82 108 86 107 90" stroke="#d26f22" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+        <ellipse cx="60" cy="106" rx="28" ry="24" fill="#f29a4a"/>
+        <ellipse cx="60" cy="111" rx="15" ry="15" fill="#fff4e6"/>
+        <path d="M36 96 q5 -2 8 2 M84 96 q-5 -2 -8 2" stroke="#d26f22" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <g class="cabeza">
+          <g class="oreja oreja-i"><path d="M36 46 L33 17 L57 33 Z" fill="#f29a4a"/><path d="M39.5 39 L38 25 L50 33 Z" fill="#ff9fb5"/></g>
+          <g class="oreja oreja-d"><path d="M84 46 L87 17 L63 33 Z" fill="#f29a4a"/><path d="M80.5 39 L82 25 L70 33 Z" fill="#ff9fb5"/></g>
+          <ellipse cx="60" cy="56" rx="28.5" ry="25" fill="#f29a4a"/>
+          <path d="M60 32 v8 M51.5 34 l2.2 7 M68.5 34 l-2.2 7" stroke="#d26f22" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M32.5 54 l7 1.5 M33.5 61 l6.5 0 M87.5 54 l-7 1.5 M86.5 61 l-6.5 0" stroke="#d26f22" stroke-width="2.6" stroke-linecap="round"/>
+          <ellipse cx="60" cy="67" rx="12.5" ry="8.5" fill="#fff4e6"/>
+          <circle cx="41" cy="65" r="4.3" fill="#ff6f91" opacity=".35"/>
+          <circle cx="79" cy="65" r="4.3" fill="#ff6f91" opacity=".35"/>
+          <g class="ojo-abierto"><ellipse cx="48" cy="54" rx="4.8" ry="5.8" fill="#8fd16a"/><ellipse cx="48" cy="54" rx="1.7" ry="4.6" fill="#1d1a10"/><circle cx="49.6" cy="51.6" r="1.3" fill="#fff"/></g>
+          <g class="ojo-abierto"><ellipse cx="72" cy="54" rx="4.8" ry="5.8" fill="#8fd16a"/><ellipse cx="72" cy="54" rx="1.7" ry="4.6" fill="#1d1a10"/><circle cx="73.6" cy="51.6" r="1.3" fill="#fff"/></g>
+          <g class="ojo-feliz" stroke="#3a2412" stroke-width="2.6" fill="none" stroke-linecap="round"><path d="M43.5 55.5 q4.5 -6 9 0"/><path d="M67.5 55.5 q4.5 -6 9 0"/></g>
+          <g class="ojo-dormido" stroke="#3a2412" stroke-width="2.6" fill="none" stroke-linecap="round"><path d="M43.5 54 q4.5 4.5 9 0"/><path d="M67.5 54 q4.5 4.5 9 0"/></g>
+          <ellipse class="lengua" cx="60" cy="72.5" rx="3" ry="3.6" fill="#ff6f91"/>
+          <path d="M56.4 62.5 h7.2 l-3.6 4.2 z" fill="#ff6f91"/>
+          <path d="M60 66.7 q-3 4 -6.2 1.6 M60 66.7 q3 4 6.2 1.6" stroke="#3a2412" stroke-width="1.9" fill="none" stroke-linecap="round"/>
+          <path d="M45 66 l-17 -3 M45 69.5 l-17 2.5 M75 66 l17 -3 M75 69.5 l17 2.5" stroke="#fffaf0" stroke-width="1.4" stroke-linecap="round" opacity=".9"/>
+        </g>
+      </svg>
+      <div class="zzz"><span>z</span><span>z</span><span>Z</span></div>
+    </div>
+  </div>
+  <main class="tarjeta" id="app"></main>
+</div>
+<canvas id="lluvia" aria-hidden="true"></canvas>
 
 <script src="config.js"></script>
 <script>
 (function () {
+  "use strict";
   const J = window.JUEGO;
+  const H = Object.assign({ perro: "Toby", gato: "Luna" }, J.presentadores || {});
   const app = document.getElementById("app");
   const params = new URLSearchParams(location.search);
   const DEV = params.has("dev");
   const KEY = "juego-cumple-progreso";
   const N = J.pruebas.length;
+  const QUIETO = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const HUELLA = (cls = "") => `<svg class="${cls}" viewBox="0 0 24 24"><use href="#huella"/></svg>`;
 
-  // ---------- almacenamiento seguro ----------
+  // ---------- almacenamiento ----------
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
     clear() { try { Object.keys(localStorage).filter(k => k.startsWith("juego-cumple")).forEach(k => localStorage.removeItem(k)); } catch {} },
   };
-
-  if (params.has("reset")) {
-    store.clear();
-    app.innerHTML = `<div class="emoji">🧹</div><h1 class="center">Progreso borrado</h1>`;
-    return;
-  }
-
-  // progreso = número de la última prueba resuelta (0 = solo ha visto el inicio)
   const progreso = () => store.get(KEY, -1);
   const setProgreso = (n) => { if (n > progreso()) store.set(KEY, n); };
 
-  // ---------- utilidades ----------
-  const normalizar = (s) => String(s)
-    .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9ñ ]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  // ---------- texto ----------
+  const t = (s) => String(s ?? "")
+    .replaceAll("{nombre}", J.nombre || "")
+    .replaceAll("{perro}", H.perro)
+    .replaceAll("{gato}", H.gato);
+  const normalizar = (s) => String(s).toLowerCase()
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9ñ ]/g, "").replace(/\s+/g, " ").trim();
+  const azar = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-  const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  // ---------- sonido ----------
+  let mudo = store.get("juego-cumple-mudo", false);
+  const btnSonido = document.getElementById("sonido");
+  const pintaSonido = () => { btnSonido.textContent = mudo ? "🔇" : "🔊"; };
+  pintaSonido();
+  btnSonido.onclick = () => { mudo = !mudo; store.set("juego-cumple-mudo", mudo); pintaSonido(); if (!mudo) tono([[660, 0, .12]]); };
+  let actx;
+  function tono(notas) {
+    if (mudo) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === "suspended") actx.resume();
+      const t0 = actx.currentTime;
+      notas.forEach(([f, d, dur, tipo]) => {
+        const o = actx.createOscillator(), g = actx.createGain();
+        o.type = tipo || "triangle"; o.frequency.value = f;
+        g.gain.setValueAtTime(.0001, t0 + d);
+        g.gain.exponentialRampToValueAtTime(.16, t0 + d + .02);
+        g.gain.exponentialRampToValueAtTime(.0001, t0 + d + dur);
+        o.connect(g).connect(actx.destination);
+        o.start(t0 + d); o.stop(t0 + d + dur + .05);
+      });
+    } catch {}
+  }
+  const sAcierto = () => tono([[523, 0, .16], [659, .1, .16], [784, .2, .16], [1047, .3, .45]]);
+  const sFallo = () => tono([[247, 0, .18, "sine"], [196, .14, .32, "sine"]]);
 
-  function estrellas() {
-    const c = document.getElementById("stars");
-    for (let i = 0; i < 40; i++) {
-      const s = document.createElement("span");
-      s.style.left = Math.random() * 100 + "%";
-      s.style.top = Math.random() * 100 + "%";
-      s.style.animationDelay = Math.random() * 3 + "s";
-      c.appendChild(s);
+  // ---------- presentadores ----------
+  const host = { perro: document.getElementById("perro"), gato: document.getElementById("gato") };
+  const bocadillo = document.getElementById("bocadillo");
+  const timers = {};
+  function animo(quien, estado, ms) {
+    const el = host[quien];
+    el.dataset.animo = "idle"; void el.offsetWidth; el.dataset.animo = estado;
+    clearTimeout(timers[quien]);
+    if (ms) timers[quien] = setTimeout(() => { el.dataset.animo = "idle"; }, ms);
+  }
+  let tBoca;
+  function dice(quien, texto, ms = 3800) {
+    bocadillo.classList.remove("ver");
+    clearTimeout(tBoca);
+    setTimeout(() => {
+      bocadillo.dataset.lado = quien;
+      bocadillo.textContent = t(texto);
+      bocadillo.classList.add("ver");
+      if (ms) tBoca = setTimeout(() => bocadillo.classList.remove("ver"), ms);
+    }, 120);
+  }
+
+  // ---------- huellas de progreso ----------
+  function pintaHuellas(actual, recienHecha) {
+    const c = document.getElementById("huellas");
+    const hecho = progreso();
+    c.innerHTML = J.pruebas.map((_, k) => {
+      const n = k + 1;
+      let cls = n <= hecho ? "hecha" : (n === actual ? "actual" : "");
+      if (n === recienHecha) cls += " pop";
+      return HUELLA(cls);
+    }).join("");
+  }
+
+  // ---------- rastro de huellas en el fondo ----------
+  function rastro() {
+    if (QUIETO || document.hidden) return;
+    const c = document.getElementById("rastro");
+    const w = innerWidth, h = innerHeight;
+    const izq = Math.random() < .5;
+    const y0 = h * (.55 + Math.random() * .35);
+    const ang = (izq ? 0 : Math.PI) + (Math.random() - .5) * .5;
+    const pasos = 14, sep = 34;
+    let x = izq ? -20 : w + 20, y = y0;
+    for (let k = 0; k < pasos; k++) {
+      x += Math.cos(ang) * sep; y += Math.sin(ang) * sep;
+      const lado = (k % 2 ? 1 : -1) * 8;
+      const px = x + Math.cos(ang + Math.PI / 2) * lado, py = y + Math.sin(ang + Math.PI / 2) * lado;
+      const el = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      el.setAttribute("viewBox", "0 0 24 24");
+      el.innerHTML = '<use href="#huella"/>';
+      el.style.left = px + "px"; el.style.top = py + "px";
+      el.style.transform = `rotate(${ang * 180 / Math.PI + 90}deg)`;
+      el.style.animationDelay = k * .22 + "s";
+      c.appendChild(el);
+      setTimeout(() => el.remove(), 3400 + k * 220);
     }
   }
 
-  // ---------- pantallas ----------
-  function bloqueado() {
-    app.innerHTML = `
-      <div class="emoji">🔒</div>
-      <h1 class="center">¡Alto ahí!</h1>
-      <div class="content center"><p>${esc(J.mensajeBloqueado)}</p></div>`;
+  // ---------- lluvia de huesos, peces y huellas ----------
+  const cv = document.getElementById("lluvia");
+  const ctx = cv.getContext("2d");
+  let piezas = [], animando = false;
+  function lluvia(cantidad, duracion) {
+    if (QUIETO) return;
+    const dpr = devicePixelRatio || 1;
+    cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+    const emojis = ["🐾", "🦴", "🐟", "💛", "🧶", "⭐", "🐾"];
+    const colores = ["#ffd23f", "#ff6f91", "#2ee6a6", "#9b8cff", "#ffffff"];
+    const fin = performance.now() + duracion;
+    for (let k = 0; k < cantidad; k++) {
+      const esEmoji = Math.random() < .45;
+      piezas.push({
+        x: Math.random() * cv.width, y: -Math.random() * cv.height * .6 - 20 * dpr,
+        vx: (Math.random() - .5) * 1.6 * dpr, vy: (2.2 + Math.random() * 3) * dpr,
+        rot: Math.random() * 6, vr: (Math.random() - .5) * .16,
+        tam: (esEmoji ? 20 + Math.random() * 14 : 7 + Math.random() * 6) * dpr,
+        e: esEmoji ? azar(emojis) : null, c: azar(colores), fin,
+      });
+    }
+    if (!animando) { animando = true; requestAnimationFrame(frame); }
+  }
+  function frame(ahora) {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    piezas = piezas.filter(p => p.y < cv.height + 60 || ahora < p.fin);
+    for (const p of piezas) {
+      p.x += p.vx + Math.sin((p.y + p.rot * 40) / 60) * .6; p.y += p.vy; p.rot += p.vr;
+      if (p.y > cv.height + 40 && ahora < p.fin) { p.y = -30; p.x = Math.random() * cv.width; }
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      if (p.e) { ctx.font = `${p.tam}px system-ui, "Apple Color Emoji", sans-serif`; ctx.textAlign = "center"; ctx.fillText(p.e, 0, 0); }
+      else { ctx.fillStyle = p.c; ctx.fillRect(-p.tam / 2, -p.tam * .7, p.tam, p.tam * 1.4); }
+      ctx.restore();
+    }
+    if (piezas.length) requestAnimationFrame(frame);
+    else { animando = false; ctx.clearRect(0, 0, cv.width, cv.height); }
   }
 
+  // ---------- piezas de contenido ----------
+  function fichasHTML(p) {
+    let d = 0;
+    const ficha = (c) => {
+      const s = `<span class="ficha${c === "?" ? " incognita" : ""}" style="animation-delay:${(d++) * 70}ms"><span>${c}</span></span>`;
+      return s;
+    };
+    if (p.serie) return `<div class="fichas serie" style="--n:${p.serie.length}">${p.serie.map(ficha).join("")}</div>`;
+    if (p.cifrado) return `<div class="fichas">${p.cifrado.split(" ").map(w => `<div class="palabra">${[...w].map(ficha).join("")}</div>`).join("")}</div>`;
+    if (p.pila) return `<div class="fichas pila">${p.pila.map(fila => `<div class="fila">${[...String(fila)].map(ficha).join("")}</div>`).join("")}</div>`;
+    return "";
+  }
+
+  function marcadorHTML(pct) {
+    const L = 2 * Math.PI * 42;
+    return `
+      <div class="marcador" role="img" aria-label="Lo acierta el ${pct}% de la gente">
+        <svg viewBox="0 0 100 100">
+          <circle class="pista-aro" cx="50" cy="50" r="42" fill="none" stroke-width="9"/>
+          <circle class="aro" id="aro" cx="50" cy="50" r="42" fill="none" stroke-width="9" stroke-dasharray="${L}" stroke-dashoffset="0"/>
+        </svg>
+        <div class="num"><div><span id="pctNum">100</span>%<small>lo acierta</small></div></div>
+      </div>`;
+  }
+  function animaMarcador(pct) {
+    const aro = document.getElementById("aro"), num = document.getElementById("pctNum");
+    const L = 2 * Math.PI * 42;
+    if (QUIETO) { aro.style.strokeDashoffset = L * (1 - pct / 100); num.textContent = pct; return; }
+    requestAnimationFrame(() => { aro.style.strokeDashoffset = L * (1 - pct / 100); });
+    const t0 = performance.now(), dur = 1300;
+    (function paso(ahora) {
+      const k = Math.min(1, (ahora - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      num.textContent = Math.round(100 - (100 - pct) * e);
+      if (k < 1) requestAnimationFrame(paso);
+    })(t0);
+  }
+
+  function cartaHTML(de, pista) {
+    return `
+      <div class="carta">
+        <div class="sello">${HUELLA()}</div>
+        <p class="de">${de}</p>
+        <p class="pista">${t(pista)}</p>
+      </div>`;
+  }
+
+  // ---------- pantallas ----------
   function pantallaInicio() {
     setProgreso(0);
+    pintaHuellas(1);
+    const I = J.inicio;
+    const max = Math.max(...J.pruebas.map(p => p.porcentaje || 0), 1);
     app.innerHTML = `
-      <span class="step">Empieza el juego</span>
-      <h1>${J.inicio.titulo}</h1>
-      <div class="content">${J.inicio.texto}</div>
-      <div class="next"><small>Primera pista</small><p>${J.inicio.siguiente}</p></div>`;
+      <p class="kicker">${t(I.antetitulo || "Esta noche, en el plató")}</p>
+      <h1>${t(I.titulo)}</h1>
+      <div class="texto" style="margin-top:14px">${t(I.texto)}</div>
+      <div class="escalera" aria-hidden="true">
+        ${J.pruebas.map((p, k) => `
+          <div class="escalon"><div style="height:${Math.max(6, (p.porcentaje || 0) / max * 88)}px;animation-delay:${300 + k * 90}ms"></div><span>${p.porcentaje ?? "?"}%</span></div>`).join("")}
+      </div>
+      <p class="leyenda">${N} preguntas. Cada barra es el porcentaje de gente que acierta esa pregunta.</p>
+      <ol class="pasos">
+        <li>Busca la pegatina y acerca la parte de arriba del móvil.</li>
+        <li>Toca la notificación que aparece y responde la pregunta.</li>
+        <li>Si aciertas, te damos la pista de la siguiente pegatina.</li>
+      </ol>
+      <div id="zona"><button class="boton empezar" id="empezar" type="button">Empezar el juego</button></div>`;
+
+    setTimeout(() => { animo("perro", "feliz", 1200); dice("perro", I.saludoPerro || "¡Hola, {nombre}! Soy {perro} 🐶", 3200); }, 500);
+    setTimeout(() => { animo("gato", "piensa", 2600); dice("gato", I.saludoGato || "Y yo, {gato}. Hoy presentamos nosotros 😼", 3600); }, 3900);
+
+    document.getElementById("empezar").onclick = () => {
+      sAcierto();
+      animo("perro", "feliz", 1400); animo("gato", "feliz", 1400);
+      dice("perro", "¡Que empiece el juego! 🎬", 3000);
+      document.getElementById("zona").innerHTML = cartaHTML("Primera pista", I.siguiente);
+      lluvia(70, 900);
+      document.querySelector(".carta").scrollIntoView({ behavior: QUIETO ? "auto" : "smooth", block: "center" });
+    };
+  }
+
+  function pantallaBloqueo() {
+    pintaHuellas(progreso() + 1);
+    host.gato.dataset.animo = "duerme";
+    app.innerHTML = `
+      <div class="bloqueo">
+        <div class="candado"><svg viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V8a3 3 0 0 0-6 0v2Z"/></svg></div>
+        <h1>Esta pegatina aún no toca</h1>
+        <div class="texto"><p>${t(J.mensajeBloqueado || "{gato} se ha dormido encima de esta pregunta. Resuelve antes la anterior.")}</p></div>
+      </div>`;
+    setTimeout(() => { animo("perro", "piensa"); dice("perro", "Shhh… {gato} está durmiendo. Vuelve a la pista anterior 🤫", 5000); }, 600);
   }
 
   function pantallaPrueba(i) {
     const p = J.pruebas[i - 1];
     const resuelta = progreso() >= i;
+    pintaHuellas(i);
     app.innerHTML = `
-      <div class="top">
-        <span class="step">Pregunta ${i} de ${N}</span>
-        ${p.porcentaje != null ? `<span class="pct">Lo acierta el <strong>${p.porcentaje}%</strong></span>` : ""}
+      <div class="cabecera">
+        <div>
+          <p class="kicker">Pregunta ${i} de ${N}</p>
+          <h1>${t(p.titulo)}</h1>
+        </div>
+        ${p.porcentaje != null ? marcadorHTML(p.porcentaje) : ""}
       </div>
-      <div class="meter"><div style="width:${Math.max(4, 100 - (p.porcentaje ?? 0))}%"></div></div>
-      <h1>${p.titulo}</h1>
-      <div class="content">
-        ${p.enunciado}
-        ${p.imagen ? `<img src="${esc(p.imagen)}" alt="">` : ""}
-      </div>
+      <div class="texto">${t(p.enunciado)}</div>
+      ${fichasHTML(p)}
+      ${p.imagen ? `<img src="${p.imagen}" alt="" style="width:100%;border-radius:16px;margin-top:14px">` : ""}
       <div id="zona"></div>`;
+    if (p.porcentaje != null) animaMarcador(p.porcentaje);
 
     const zona = document.getElementById("zona");
-
-    const mostrarSiguiente = (animar) => {
-      zona.innerHTML = `
-        <div class="solved">✔ ¡Correcto!</div>
-        <div class="next"><small>${i === N ? "Última pista" : "Siguiente pista"}</small><p>${p.siguiente}</p></div>`;
-      if (animar) confeti(1200);
+    const pintaSiguiente = (de) => {
+      zona.innerHTML = `<div class="acertada">Respuesta correcta</div>` +
+        cartaHTML(i === N ? "Última pista" : "Pista de la siguiente pegatina", p.siguiente);
     };
 
-    if (resuelta) { mostrarSiguiente(false); return; }
+    if (resuelta) {
+      pintaSiguiente();
+      setTimeout(() => { animo("perro", "feliz", 1200); dice("perro", "Esta ya la tienes. Aquí está tu pista 🐾", 3500); }, 500);
+      return;
+    }
+
+    const entradas = p.porcentaje <= 5
+      ? ["Esta es de las difíciles… 😬", "Solo para mentes del 1% 🧠"]
+      : p.porcentaje <= 30
+        ? ["Aquí empieza a caer la gente 😼", "Ojo, que esta tiene truco 👀"]
+        : ["Esta es fácil, ¿no? 😏", "Calentando motores 🐾"];
+    setTimeout(() => { animo("gato", "piensa", 3000); dice("gato", azar(entradas), 3400); }, 900);
 
     zona.innerHTML = `
-      <form id="f" autocomplete="off">
-        <input id="r" placeholder="Tu respuesta" autocapitalize="off" autocorrect="off" spellcheck="false">
-        <button type="submit">Comprobar</button>
-        <div class="msg" id="msg"></div>
+      <form id="form" autocomplete="off" novalidate>
+        <div class="campo"><input id="resp" aria-label="Tu respuesta" placeholder="Escribe tu respuesta" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done"></div>
+        <button class="boton" type="submit">Responder</button>
+        <p class="aviso" id="aviso" role="status"></p>
       </form>
-      <div id="ayudaZona"></div>`;
+      <div id="ayuda"></div>`;
 
-    const f = document.getElementById("f");
-    const input = document.getElementById("r");
-    const msg = document.getElementById("msg");
-    const fallos = ["Mmm… no 🙈", "Casi… o no 😅", "Prueba otra vez 💭", "¡Tú puedes! 💪"];
-    let nf = 0;
+    const form = document.getElementById("form");
+    const input = document.getElementById("resp");
+    const aviso = document.getElementById("aviso");
+    const fallos = J.frasesFallo || ["Miau… esa no es 🙄", "Frío, frío 🧊", "Casi… o no 😹", "Respira y vuelve a leerla 🐾", "Esa no, pero vas bien 😼"];
+    const aciertos = J.frasesAcierto || ["¡Guau! ¡Correcto! 🐶", "¡Eso es! Te has ganado una galleta 🦴", "¡Lo sabía! Eres del 1% 🎉"];
+    let intentos = 0;
 
-    f.addEventListener("submit", (e) => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const ok = p.respuestas.some(r => normalizar(r) === normalizar(input.value));
-      if (ok) {
+      const v = input.value;
+      if (!normalizar(v)) { aviso.textContent = "Escribe una respuesta para comprobarla."; input.focus(); return; }
+      if (p.respuestas.some(r => normalizar(r) === normalizar(v))) {
         setProgreso(i);
         input.blur();
-        mostrarSiguiente(true);
+        sAcierto();
+        animo("perro", "feliz", 1400); animo("gato", "feliz", 1400);
+        dice("perro", azar(aciertos), 3200);
+        pintaHuellas(i + 1, i);
+        lluvia(i === N ? 130 : 85, i === N ? 2000 : 1100);
+        clearInterval(reloj);
+        pintaSiguiente();
+        setTimeout(() => document.querySelector(".carta").scrollIntoView({ behavior: QUIETO ? "auto" : "smooth", block: "center" }), 300);
       } else {
-        msg.textContent = fallos[nf++ % fallos.length];
-        f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");
+        intentos++;
+        sFallo();
+        animo("gato", "no", 1300);
+        dice("gato", fallos[(intentos - 1) % fallos.length], 2600);
+        aviso.textContent = "No es correcta. Prueba otra vez.";
+        input.classList.add("mal");
+        app.classList.remove("temblor"); void app.offsetWidth; app.classList.add("temblor");
+        input.select();
       }
     });
+    input.addEventListener("input", () => { input.classList.remove("mal"); aviso.textContent = ""; });
 
-    // botón de ayuda temporizado
-    const kInicio = "juego-cumple-inicio-" + i;
-    let t0 = store.get(kInicio, null);
-    if (!t0) { t0 = Date.now(); store.set(kInicio, t0); }
-    const espera = Math.max(0, (J.minutosAyuda || 3) * 60000 - (Date.now() - t0));
-    if (p.ayuda) setTimeout(() => {
-      const az = document.getElementById("ayudaZona");
-      if (!az) return;
-      az.innerHTML = `<button class="ghost" id="bAyuda" style="width:100%;margin-top:10px">Necesito ayuda 🆘</button>`;
-      document.getElementById("bAyuda").onclick = () => {
-        az.innerHTML = `<div class="help">💡 ${p.ayuda}</div>`;
+    // ayuda con cuenta atrás
+    let reloj;
+    const ayudaEl = document.getElementById("ayuda");
+    if (p.ayuda) {
+      const kInicio = "juego-cumple-inicio-" + i;
+      let t0 = store.get(kInicio, null);
+      if (!t0) { t0 = Date.now(); store.set(kInicio, t0); }
+      const espera = (J.minutosAyuda || 3) * 60000;
+      const tic = () => {
+        const queda = espera - (Date.now() - t0);
+        if (queda <= 0) {
+          clearInterval(reloj);
+          ayudaEl.innerHTML = `<button class="ayuda-btn" type="button" id="pideAyuda">Pedir ayuda a ${H.perro} 🐾</button>`;
+          document.getElementById("pideAyuda").onclick = () => {
+            ayudaEl.innerHTML = `<div class="ayuda-txt">${t(p.ayuda)}</div>`;
+            animo("perro", "piensa", 3000);
+            dice("perro", "Te echo una pata… 🐾", 3000);
+          };
+          return;
+        }
+        const s = Math.ceil(queda / 1000);
+        ayudaEl.innerHTML = `<p class="ayuda">${HUELLA()}${H.perro} te podrá echar una pata en ${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}</p>`;
       };
-    }, espera);
+      tic(); reloj = setInterval(tic, 1000);
+    }
   }
 
   function pantallaFinal() {
     const F = J.final;
+    pintaHuellas(0);
     app.innerHTML = `
-      <div class="emoji">🎂</div>
-      <h1 class="center">${F.titulo}</h1>
-      <div class="content">${F.mensaje}</div>
-      <div class="media">
-        ${F.video ? `<video src="${esc(F.video)}" controls playsinline></video>` : ""}
-      </div>
-      ${F.fotos && F.fotos.length ? `<div class="gallery">${F.fotos.map(s => `<img src="${esc(s)}" alt="" loading="lazy">`).join("")}</div>` : ""}`;
-    confeti(5000);
+      <div class="final">
+        <div class="trofeo" aria-hidden="true">
+          <div class="rayos"></div>
+          <svg viewBox="0 0 120 120">
+            <path d="M32 18 H88 V42 A28 28 0 0 1 32 42 Z" fill="#ffd23f"/>
+            <path d="M32 26 H18 A14 14 0 0 0 33 50 M88 26 H102 A14 14 0 0 1 87 50" stroke="#ffd23f" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M40 22 V40 A20 20 0 0 0 50 58" stroke="#fff3c4" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
+            <rect x="53" y="69" width="14" height="16" fill="#e0ac12"/>
+            <rect x="38" y="85" width="44" height="13" rx="4" fill="#ffd23f"/>
+            <rect x="34" y="97" width="52" height="8" rx="3" fill="#e0ac12"/>
+            <text x="60" y="47" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="21" fill="#1b1446">1%</text>
+          </svg>
+        </div>
+        <p class="kicker">Has resuelto las ${N} preguntas</p>
+        <h1>${t(F.titulo)}</h1>
+        <div class="carta">
+          <div class="sello">${HUELLA()}</div>
+          <div class="mensaje">${t(F.mensaje)}</div>
+        </div>
+        ${F.video ? `<video src="${F.video}" controls playsinline preload="metadata"></video>` : ""}
+        ${F.fotos && F.fotos.length ? `<div class="polaroids">${F.fotos.map((s, k) => `<figure style="animation-delay:${600 + k * 150}ms"><img src="${s}" alt="" loading="lazy"></figure>`).join("")}</div>` : ""}
+        <button class="boton otra-vez" type="button" id="otraVez">Más confeti</button>
+      </div>`;
+    host.perro.dataset.animo = "baila"; host.gato.dataset.animo = "baila";
+    setTimeout(() => dice("perro", "¡Feliz cumpleaños, {nombre}! 🎂", 4200), 700);
+    setTimeout(() => dice("gato", "Miau, que es «te queremos» en gato 💛", 4200), 5200);
+    lluvia(130, 3200);
+    document.getElementById("otraVez").onclick = () => { sAcierto(); lluvia(110, 1300); };
   }
 
-  // ---------- confeti ----------
-  function confeti(ms) {
-    const cv = document.getElementById("confetti");
-    const ctx = cv.getContext("2d");
-    const dpr = window.devicePixelRatio || 1;
-    const resize = () => { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; };
-    resize();
-    const colores = ["#e8486c", "#f6a33a", "#ffd166", "#7bdff2", "#b388eb", "#ffffff"];
-    const piezas = Array.from({ length: 140 }, () => ({
-      x: Math.random() * cv.width,
-      y: -Math.random() * cv.height * 0.5,
-      w: (6 + Math.random() * 6) * dpr,
-      h: (8 + Math.random() * 10) * dpr,
-      vy: (2 + Math.random() * 3) * dpr,
-      vx: (Math.random() - 0.5) * 2 * dpr,
-      rot: Math.random() * Math.PI,
-      vr: (Math.random() - 0.5) * 0.2,
-      c: colores[Math.floor(Math.random() * colores.length)],
-    }));
-    const fin = performance.now() + ms;
-    (function frame(t) {
-      ctx.clearRect(0, 0, cv.width, cv.height);
-      let vivas = 0;
-      for (const p of piezas) {
-        p.x += p.vx; p.y += p.vy; p.rot += p.vr;
-        if (p.y > cv.height && t < fin) { p.y = -20; p.x = Math.random() * cv.width; }
-        if (p.y < cv.height + 20) vivas++;
-        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-        ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
-      }
-      if (vivas) requestAnimationFrame(frame); else ctx.clearRect(0, 0, cv.width, cv.height);
-    })(performance.now());
+  // ---------- arranque ----------
+  if (params.has("reset")) {
+    store.clear();
+    pintaHuellas(0);
+    app.innerHTML = `<p class="kicker">Modo prueba</p><h1>Progreso borrado</h1><div class="texto" style="margin-top:12px"><p>El juego empieza de cero en este móvil.</p></div>`;
+    return;
   }
 
-  // ---------- router ----------
-  estrellas();
+  setTimeout(rastro, 2500);
+  setInterval(rastro, 13000);
+
   const raw = (params.get("p") || "0").toLowerCase();
   const n = raw === "final" ? N + 1 : parseInt(raw, 10);
 
-  if (isNaN(n) || n < 0 || n > N + 1) { bloqueado(); return; }
-
+  if (isNaN(n) || n < 0 || n > N + 1) return pantallaBloqueo();
   if (n === 0) return pantallaInicio();
-  if (!DEV && progreso() < n - 1) return bloqueado();
+  if (!DEV && progreso() < n - 1) return pantallaBloqueo();
   if (n === N + 1) return pantallaFinal();
   pantallaPrueba(n);
 })();

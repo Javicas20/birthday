@@ -173,7 +173,7 @@ window.JUEGO = {
       `,
       cifrado: "UF RVJFSP SBUJOB",
       respuestas: ["te quiero ratina"],
-      siguiente: "Bebo sin tener boca y crezco sin moverme. Si te olvidas de mí, me pongo triste.",
+      siguiente: "De la costilla de mi tocayo salió Eva. Yo solo saco hojas con agujeros… ¿Quién podría dormir entre mis hojas? 🌿",
     },
     {
       porcentaje: 1,

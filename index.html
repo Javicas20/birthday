@@ -81,9 +81,9 @@
   }
 
   /* ---------- escenario + presentadores ---------- */
-  .escenario { position: relative; z-index: 2; max-width: 460px; margin: 0 auto; padding-top: 148px; }
-  .presentadores { position: absolute; inset: 0 0 auto 0; height: 190px; pointer-events: none; }
-  .host { position: absolute; top: 44px; width: 112px; transition: translate .4s cubic-bezier(.3, 1.6, .5, 1); }
+  .escenario { position: relative; z-index: 2; max-width: 460px; margin: 0 auto; padding-top: 160px; }
+  .presentadores { position: absolute; inset: 0 0 auto 0; height: 202px; pointer-events: none; }
+  .host { position: absolute; top: 56px; width: 112px; transition: translate .4s cubic-bezier(.3, 1.6, .5, 1); }
   .host svg { display: block; width: 100%; height: auto; overflow: visible; }
   .host-perro { left: 14px; }
   .host-gato { right: 14px; }
@@ -151,7 +151,7 @@
 
   /* bocadillo */
   .bocadillo {
-    position: absolute; top: 0; max-width: 74%;
+    position: absolute; bottom: 140px; max-width: 88%;
     background: #fff; color: var(--tinta); border-radius: 18px;
     padding: 10px 14px; font-weight: 700; font-size: 15px; line-height: 1.35;
     box-shadow: 0 8px 24px rgba(10, 5, 40, .35);
@@ -320,6 +320,16 @@
   }
   .empezar { width: 100%; }
 
+  /* atril "en directo" durante la presentación */
+  .directo { display: grid; justify-items: center; gap: 6px; padding: 6px 0 2px; text-align: center; }
+  .en-antena { margin: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #d0365f; background: #ffe3ea; padding: 6px 12px; border-radius: 99px; }
+  .en-antena .punto { width: 9px; height: 9px; border-radius: 50%; background: #e0284f; animation: directo 1.2s ease-in-out infinite; }
+  @keyframes directo { 50% { opacity: .25; } }
+  .directo-logo { margin: 4px 0 0; font-family: var(--display); font-weight: 800; font-size: 56px; letter-spacing: -.04em; line-height: 1; color: var(--noche); }
+  .saltar { margin-top: 8px; font: inherit; font-size: 14px; color: var(--gris); background: none; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 6px; }
+  .tarjeta.revela { animation: revela .7s cubic-bezier(.2, .9, .2, 1); }
+  @keyframes revela { from { clip-path: inset(0 0 calc(100% - 180px) 0 round 30px 30px 24px 24px); } to { clip-path: inset(0 0 0 0 round 30px 30px 24px 24px); } }
+
   /* bloqueado */
   .bloqueo { text-align: center; }
   .bloqueo h1 { margin-bottom: 10px; }
@@ -357,6 +367,9 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     .rastro, .focos { display: none; }
+  }
+  @media (max-width: 380px) {
+    .bocadillo { font-size: 13.5px; padding: 8px 12px; bottom: 136px; }
   }
   @media (max-width: 370px) {
     .host { width: 98px; }
@@ -665,7 +678,7 @@
     pintaHuellas(1);
     const I = J.inicio;
     const max = Math.max(...J.pruebas.map(p => p.porcentaje || 0), 1);
-    app.innerHTML = `
+    const contenido = `
       <p class="kicker">${t(I.antetitulo || "Esta noche, en el plató")}</p>
       <h1>${t(I.titulo)}</h1>
       <div class="texto" style="margin-top:14px">${t(I.texto)}</div>
@@ -676,31 +689,51 @@
       <p class="leyenda">Porcentaje de gente que acierta cada pregunta.</p>
       <div id="zona"><button class="boton empezar" id="empezar" type="button">Empezar el juego</button></div>`;
 
-    // conversación de presentación entre los dos presentadores
+    // 1) mientras hablan los presentadores, solo se ve el atril "en directo"
+    app.innerHTML = `
+      <div class="directo">
+        <p class="en-antena"><span class="punto"></span>En directo</p>
+        <p class="directo-logo">El 1%</p>
+        <button class="saltar" id="saltar" type="button">Saltar presentación</button>
+      </div>`;
+
     const guion = I.dialogo || [
       { quien: "perro", texto: I.saludoPerro || "¡Hola, {nombre}! Soy {perro} 🐶", animo: "feliz" },
       { quien: "gato", texto: I.saludoGato || "Y yo, {gato}. Hoy presentamos nosotros 😼", animo: "piensa" },
     ];
-    let enEscena = true, tGuion = 500;
+    let enEscena = true, tGuion = 700;
+    const timers = [];
     guion.forEach((l) => {
       const dur = Math.max(2600, Math.min(5200, 1400 + t(l.texto).length * 45));
-      setTimeout(() => {
+      timers.push(setTimeout(() => {
         if (!enEscena) return;
         animo(l.quien, l.animo || "idle", l.animo ? Math.min(dur, 2200) : 0);
         dice(l.quien, l.texto, dur - 250);
-      }, tGuion);
+      }, tGuion));
       tGuion += dur + 150;
     });
 
-    document.getElementById("empezar").onclick = () => {
-      enEscena = false;
-      sAcierto();
-      animo("perro", "feliz", 1400); animo("gato", "feliz", 1400);
-      dice("perro", "¡Que empiece el juego! 🎬", 3000);
-      document.getElementById("zona").innerHTML = cartaHTML(I.buscarTitulo || "Empieza la búsqueda", I.buscar || "Busca la primera pegatina por la casa 🐾");
-      lluvia(70, 900);
-      document.querySelector(".carta").scrollIntoView({ behavior: QUIETO ? "auto" : "smooth", block: "center" });
+    // 2) al terminar la conversación se despliega la tarjeta completa
+    let revelada = false;
+    const revelar = (saltado) => {
+      if (revelada) return;
+      revelada = true; enEscena = false;
+      timers.forEach(clearTimeout);
+      if (saltado) bocadillo.classList.remove("ver");
+      app.classList.add("revela");
+      app.innerHTML = contenido;
+      animo("perro", "feliz", 900); animo("gato", "feliz", 900);
+      document.getElementById("empezar").onclick = () => {
+        sAcierto();
+        animo("perro", "feliz", 1400); animo("gato", "feliz", 1400);
+        dice("perro", "¡Que empiece el juego! 🎬", 3000);
+        document.getElementById("zona").innerHTML = cartaHTML(I.buscarTitulo || "Empieza la búsqueda", I.buscar || "Busca la primera pegatina por la casa 🐾");
+        lluvia(70, 900);
+        document.querySelector(".carta").scrollIntoView({ behavior: QUIETO ? "auto" : "smooth", block: "center" });
+      };
     };
+    timers.push(setTimeout(() => revelar(false), tGuion + 200));
+    document.getElementById("saltar").onclick = () => revelar(true);
   }
 
   function pantallaBloqueo() {

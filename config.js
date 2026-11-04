@@ -20,31 +20,36 @@
 //    cifrado    -> opcional: mensaje cifrado en fichas, ej. "CBKP MB"
 //    pila       -> opcional: filas de fichas apiladas, ej. ["1","11","?"]
 //    respuestas -> formas válidas (da igual mayúsculas, tildes y espacios)
-//    ayuda      -> se desbloquea pasados "minutosAyuda" minutos
-//    siguiente  -> pista del escondite de la SIGUIENTE pegatina
+//    siguiente  -> opcional: texto propio tras acertar (si no, «Busca la siguiente pegatina»)
 // ============================================================
 
 window.JUEGO = {
-  nombre: "[Su nombre]",
+  nombre: "pequeña ratina",
 
   // Los presentadores del concurso
   presentadores: { perro: "Toby", gato: "Luna" },
 
-  minutosAyuda: 3,
   mensajeBloqueado: "{gato} se ha dormido encima de esta pregunta. Resuelve antes la anterior y vuelve.",
 
   inicio: {
     antetitulo: "Esta noche, en el plató",
     titulo: "Bienvenida a El 1%",
     texto: `
-      <p>Feliz cumpleaños, {nombre}. Tu felicitación está escondida en casa y solo
-      la encontrará alguien que esté en el 1%.</p>
-      <p>La primera pregunta la acierta casi todo el mundo. La última, casi nadie.</p>
+      <p>Feliz cumpleaños, pequeña ratina. Tu felicitación está escondida por la casa,
+      como siempre. Solo la encontrarás si usas el 99% de tu cerebro.
+      (Qué difícil, ayayay)</p>
+      <p>Hay 8 preguntas. La primera es muy sencilla, pero iremos aumentando la dificultad.</p>
+      <p>Cada pregunta está en una pegatina escondida. Acerca la parte de arriba del móvil
+      y toca la notificación que aparece.</p>
     `,
     saludoPerro: "¡Hola, {nombre}! Soy {perro} 🐶",
     saludoGato: "Y yo, {gato}. Hoy presentamos nosotros 😼",
-    siguiente: "Guardo historias pero no hablo. Busca la que más te ha hecho llorar. 📚",
+    buscar: "Busca la primera pegatina por la casa 🐾",
   },
+
+  // Texto que aparece al acertar cada pregunta
+  textoSiguiente: "Busca la siguiente pegatina por la casa 🐾",
+  textoUltima: "Ya solo te queda encontrar la felicitación. ¡Búscala! 🎁",
 
   pruebas: [
     {
@@ -53,16 +58,12 @@ window.JUEGO = {
       enunciado: "<p>¿Qué letra sigue?</p>",
       serie: ["E", "F", "M", "A", "M", "J", "J", "?"],
       respuestas: ["a", "agosto"],
-      ayuda: "Piensa en el calendario 📅",
-      siguiente: "Donde descansan tus sueños… pero por debajo. 🛏️",
     },
     {
       porcentaje: 75,
       titulo: "Ojo con la trampa",
       enunciado: "<p>¿Cuántos meses del año tienen <strong>28 días</strong>?</p>",
       respuestas: ["12", "doce", "todos", "todos los meses"],
-      ayuda: "No te pregunto cuáles tienen <em>solo</em> 28 días 😉",
-      siguiente: "Te sigo a todas partes, pero solo de día. 👟",
     },
     {
       porcentaje: 60,
@@ -70,16 +71,12 @@ window.JUEGO = {
       enunciado: "<p>¿Qué letra sigue?</p>",
       serie: ["L", "M", "X", "J", "V", "?"],
       respuestas: ["s", "sabado"],
-      ayuda: "Lo miras en la agenda cada semana 🗓️",
-      siguiente: "Por las mañanas me abrazas antes que a mí. ☕",
     },
     {
       porcentaje: 45,
       titulo: "Juego de palabras",
       enunciado: "<p>¿Qué palabra se escribe siempre <strong>MAL</strong>?</p>",
       respuestas: ["mal"],
-      ayuda: "Vuelve a leer la pregunta, muy despacio 🔍",
-      siguiente: "Te reflejo cada mañana. 🪞",
     },
     {
       porcentaje: 30,
@@ -91,8 +88,6 @@ window.JUEGO = {
         <div class="eq pregunta"><span>🍕</span><b>+</b><span>🍔</span><b>×</b><span>🍦</span><b>=</b><i>?</i></div>
       `,
       respuestas: ["17", "diecisiete"],
-      ayuda: "En matemáticas, ¿qué va antes: sumar o multiplicar? ✖️",
-      siguiente: "Sin mí no hay sofá que valga. 🛋️",
     },
     {
       porcentaje: 15,
@@ -100,8 +95,6 @@ window.JUEGO = {
       enunciado: "<p>¿Qué letra sigue?</p>",
       serie: ["U", "D", "T", "C", "C", "S", "S", "?"],
       respuestas: ["o", "ocho"],
-      ayuda: "Cuenta en voz alta… 🔢",
-      siguiente: "Lo que guardo te calienta los pies. 🧦",
     },
     {
       porcentaje: 5,
@@ -110,10 +103,8 @@ window.JUEGO = {
         <p>Has interceptado este mensaje cifrado. Cada letra está
         <strong>una posición adelantada</strong> en el abecedario. Descífralo.</p>
       `,
-      cifrado: "CBKP MB BMGPNCSB",
-      respuestas: ["bajo la alfombra", "debajo de la alfombra", "alfombra", "la alfombra"],
-      ayuda: "La C es en realidad una B, la B es una A… 🔐",
-      siguiente: "El mensaje secreto ya te ha dicho dónde buscar. 😉",
+      cifrado: "UF RVJFSP SBUJOB",
+      respuestas: ["te quiero ratina"],
     },
     {
       porcentaje: 1,
@@ -121,8 +112,6 @@ window.JUEGO = {
       enunciado: "<p>¿Qué número sigue?</p>",
       pila: ["1", "11", "21", "1211", "111221", "?"],
       respuestas: ["312211"],
-      ayuda: "No sumes nada. Lee cada fila en voz alta describiendo la de arriba: «un 1» → 11 🗣️",
-      siguiente: "Estás en el 1%. Tu premio te espera en tu mesita de noche. 🎁",
     },
   ],
 

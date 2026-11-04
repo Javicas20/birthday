@@ -649,12 +649,7 @@
         ${J.pruebas.map((p, k) => `
           <div class="escalon"><div style="height:${Math.max(6, (p.porcentaje || 0) / max * 88)}px;animation-delay:${300 + k * 90}ms"></div><span>${p.porcentaje ?? "?"}%</span></div>`).join("")}
       </div>
-      <p class="leyenda">${N} preguntas. Cada barra es el porcentaje de gente que acierta esa pregunta.</p>
-      <ol class="pasos">
-        <li>Busca la pegatina y acerca la parte de arriba del móvil.</li>
-        <li>Toca la notificación que aparece y responde la pregunta.</li>
-        <li>Si aciertas, te damos la pista de la siguiente pegatina.</li>
-      </ol>
+      <p class="leyenda">Porcentaje de gente que acierta cada pregunta.</p>
       <div id="zona"><button class="boton empezar" id="empezar" type="button">Empezar el juego</button></div>`;
 
     setTimeout(() => { animo("perro", "feliz", 1200); dice("perro", I.saludoPerro || "¡Hola, {nombre}! Soy {perro} 🐶", 3200); }, 500);
@@ -664,7 +659,7 @@
       sAcierto();
       animo("perro", "feliz", 1400); animo("gato", "feliz", 1400);
       dice("perro", "¡Que empiece el juego! 🎬", 3000);
-      document.getElementById("zona").innerHTML = cartaHTML("Primera pista", I.siguiente);
+      document.getElementById("zona").innerHTML = cartaHTML("Empieza la búsqueda", I.buscar || "Busca la primera pegatina por la casa 🐾");
       lluvia(70, 900);
       document.querySelector(".carta").scrollIntoView({ behavior: QUIETO ? "auto" : "smooth", block: "center" });
     };
@@ -679,7 +674,7 @@
         <h1>Esta pegatina aún no toca</h1>
         <div class="texto"><p>${t(J.mensajeBloqueado || "{gato} se ha dormido encima de esta pregunta. Resuelve antes la anterior.")}</p></div>
       </div>`;
-    setTimeout(() => { animo("perro", "piensa"); dice("perro", "Shhh… {gato} está durmiendo. Vuelve a la pista anterior 🤫", 5000); }, 600);
+    setTimeout(() => { animo("perro", "piensa"); dice("perro", "Shhh… {gato} está durmiendo. Resuelve antes la pregunta anterior 🤫", 5000); }, 600);
   }
 
   function pantallaPrueba(i) {
@@ -703,12 +698,12 @@
     const zona = document.getElementById("zona");
     const pintaSiguiente = (de) => {
       zona.innerHTML = `<div class="acertada">Respuesta correcta</div>` +
-        cartaHTML(i === N ? "Última pista" : "Pista de la siguiente pegatina", p.siguiente);
+        cartaHTML(i === N ? "Última pregunta superada" : "Siguiente pegatina", p.siguiente || (i === N ? (J.textoUltima || "Ya solo te queda encontrar la felicitación. ¡Búscala! 🎁") : (J.textoSiguiente || "Busca la siguiente pegatina por la casa 🐾")));
     };
 
     if (resuelta) {
       pintaSiguiente();
-      setTimeout(() => { animo("perro", "feliz", 1200); dice("perro", "Esta ya la tienes. Aquí está tu pista 🐾", 3500); }, 500);
+      setTimeout(() => { animo("perro", "feliz", 1200); dice("perro", "Esta ya la tienes. ¡A por la siguiente! 🐾", 3500); }, 500);
       return;
     }
 

@@ -67,9 +67,13 @@ window.JUEGO = {
     },
     {
       porcentaje: 75,
-      titulo: "Ojo con la trampa",
-      enunciado: "<p>¿Cuántos meses del año tienen <strong>28 días</strong>?</p>",
-      respuestas: ["12", "doce", "todos", "todos los meses"],
+      titulo: "Día de colada",
+      enunciado: `
+        <p>Si una camiseta tarda <strong>1 hora</strong> en secarse al sol,
+        ¿cuánto tardan en secarse <strong>5 camisetas</strong>?</p>
+        <p class="eq"><span>👕</span><span>👕</span><span>👕</span><span>👕</span><span>👕</span></p>
+      `,
+      respuestas: ["1", "una", "1 hora", "una hora", "1h", "1 h", "60", "60 minutos", "60 min", "lo mismo", "igual"],
       siguiente: "Cada mañana me llenas, me vacías a sorbos y, aunque me quemo, nunca me quejo.",
     },
     {

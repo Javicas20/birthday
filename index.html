@@ -56,6 +56,12 @@
     text-transform: uppercase; color: var(--accent); background: #fde6ec;
     padding: 5px 12px; border-radius: 99px; margin-bottom: 12px;
   }
+  .top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .top .step { margin-bottom: 0; }
+  .pct { font-size: 14px; color: var(--muted); }
+  .pct strong { color: var(--ink); font-size: 18px; font-family: "Fraunces", serif; }
+  .meter { height: 6px; border-radius: 99px; background: #f1e3e7; overflow: hidden; margin-bottom: 16px; }
+  .meter div { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent2), var(--accent)); }
   h1 {
     font-family: "Fraunces", serif; font-weight: 800;
     font-size: clamp(26px, 7vw, 34px); line-height: 1.1; margin: 0 0 14px;
@@ -183,7 +189,11 @@
     const p = J.pruebas[i - 1];
     const resuelta = progreso() >= i;
     app.innerHTML = `
-      <span class="step">Prueba ${i} de ${N}</span>
+      <div class="top">
+        <span class="step">Pregunta ${i} de ${N}</span>
+        ${p.porcentaje != null ? `<span class="pct">Lo acierta el <strong>${p.porcentaje}%</strong></span>` : ""}
+      </div>
+      <div class="meter"><div style="width:${Math.max(4, 100 - (p.porcentaje ?? 0))}%"></div></div>
       <h1>${p.titulo}</h1>
       <div class="content">
         ${p.enunciado}

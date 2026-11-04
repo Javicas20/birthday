@@ -74,14 +74,24 @@ window.JUEGO = {
         <p class="eq"><span>👕</span><span>👕</span><span>👕</span><span>👕</span><span>👕</span></p>
       `,
       respuestas: ["1", "una", "1 hora", "una hora", "1h", "1 h", "60", "60 minutos", "60 min", "lo mismo", "igual"],
-      siguiente: "Cada mañana me llenas, me vacías a sorbos y, aunque me quemo, nunca me quejo.",
+      siguiente: "Donde huele a ajo, el aceite canta y siempre acabo yo fregando. 🧄",
     },
     {
       porcentaje: 60,
-      titulo: "Otra serie",
-      enunciado: "<p>¿Qué letra sigue?</p>",
-      serie: ["L", "M", "X", "J", "V", "?"],
-      respuestas: ["s", "sabado"],
+      titulo: "¿Qué hay de cena?",
+      enunciado: `
+        <p>Para cenar hay pizza. 🍕</p>
+        <p>Con <strong>3 cortes rectos</strong> de cuchillo, y sin mover los trozos,
+        ¿cuántos trozos puedes conseguir como máximo?</p>
+        <svg viewBox="0 0 200 200" width="150" height="150" style="display:block;margin:12px auto 0" aria-hidden="true">
+          <circle cx="100" cy="100" r="92" fill="#e3a24a"/>
+          <circle cx="100" cy="100" r="78" fill="#f2c94c"/>
+          <circle cx="100" cy="100" r="78" fill="none" stroke="#e8553c" stroke-width="6" stroke-dasharray="3 9" opacity=".5"/>
+          <g fill="#d64545"><circle cx="70" cy="68" r="11"/><circle cx="128" cy="62" r="10"/><circle cx="140" cy="118" r="11"/><circle cx="95" cy="138" r="10"/><circle cx="58" cy="115" r="9"/><circle cx="104" cy="95" r="9"/></g>
+          <g fill="#3e8e41"><ellipse cx="88" cy="74" rx="6" ry="3" transform="rotate(30 88 74)"/><ellipse cx="122" cy="96" rx="6" ry="3" transform="rotate(-20 122 96)"/><ellipse cx="76" cy="134" rx="6" ry="3" transform="rotate(60 76 134)"/><ellipse cx="126" cy="140" rx="6" ry="3"/></g>
+        </svg>
+      `,
+      respuestas: ["7", "siete", "7 trozos", "siete trozos"],
       siguiente: "Si me miras, te miro. Si te ríes, me río. Si te vas, desaparezco.",
     },
     {

@@ -46,7 +46,7 @@ window.JUEGO = {
     saludoGato: "Y yo, {gato}. Hoy presentamos nosotros 😼",
     // Lo que aparece al pulsar «Empezar el juego»
     buscarTitulo: "Para encontrar la primera pegatina",
-    buscar: "Fue la conciencia de una marioneta con la nariz muy larga, y se ha colado dos veces en nuestro salón. ¿Quién es? 🤥",
+    buscar: "Fue la conciencia de una marioneta con la nariz muy larga. 🤥",
   },
 
   // Texto que aparece al acertar cada pregunta

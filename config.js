@@ -19,6 +19,8 @@
 //    serie      -> opcional: fichas en fila, ej. ["L","M","?"]
 //    cifrado    -> opcional: mensaje cifrado en fichas, ej. "CBKP MB"
 //    pila       -> opcional: filas de fichas apiladas, ej. ["1","11","?"]
+//    hojas      -> opcional: números en hojas de una planta, ej. ["1","11","?"]
+//    palabras   -> opcional: palabras en fichas
 //    respuestas -> formas válidas (da igual mayúsculas, tildes y espacios)
 //    siguiente  -> adivinanza que indica dónde está la SIGUIENTE pegatina
 // ============================================================
@@ -184,8 +186,12 @@ window.JUEGO = {
     {
       porcentaje: 1,
       titulo: "La pregunta del 1%",
-      enunciado: "<p>¿Qué número sigue?</p>",
-      pila: ["1", "11", "21", "1211", "111221", "?"],
+      enunciado: `
+        <p>El mono ha escrito estos números en las hojas de la costilla de Adán,
+        de arriba abajo. 🐒</p>
+        <p>¿Qué número escribirá en la siguiente hoja?</p>
+      `,
+      hojas: ["1", "11", "21", "1211", "111221", "?"],
       respuestas: ["312211"],
       siguiente: "Duermo a tu lado, sujeto lo que lees antes de soñar y guardo secretos en mis cajones.",
     },

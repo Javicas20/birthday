@@ -131,10 +131,37 @@ window.JUEGO = {
     },
     {
       porcentaje: 15,
-      titulo: "La serie misteriosa",
-      enunciado: "<p>¿Qué letra sigue?</p>",
-      serie: ["U", "D", "T", "C", "C", "S", "S", "?"],
-      respuestas: ["o", "ocho"],
+      titulo: "El aparcamiento",
+      enunciado: `
+        <p>Alguien ha aparcado encima de un número. 🚗</p>
+        <svg viewBox="0 0 330 176" width="100%" style="display:block;max-width:360px;margin:14px auto 0" aria-hidden="true">
+          <rect x="0" y="0" width="330" height="176" rx="18" fill="#3a3852"/>
+          <rect x="0" y="150" width="330" height="26" rx="0" fill="#2e2c44"/>
+          <path d="M0 158 H330" stroke="#ffd23f" stroke-width="3" stroke-dasharray="18 14"/>
+          <line x1="15" y1="16" x2="15" y2="142" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <line x1="65" y1="16" x2="65" y2="142" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <line x1="115" y1="16" x2="115" y2="142" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <line x1="165" y1="16" x2="165" y2="142" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <line x1="215" y1="16" x2="215" y2="142" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <line x1="265" y1="16" x2="265" y2="142" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <line x1="315" y1="16" x2="315" y2="142" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <text x="40" y="120" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="25" fill="#fff">16</text>
+          <text x="90" y="120" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="25" fill="#fff">06</text>
+          <text x="140" y="120" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="25" fill="#fff">68</text>
+          <text x="190" y="120" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="25" fill="#fff">88</text>
+          <g transform="translate(221 30)">
+            <rect x="0" y="0" width="38" height="100" rx="12" fill="#ff6f91"/>
+            <rect x="5" y="16" width="28" height="18" rx="5" fill="#cfe9ff"/>
+            <rect x="5" y="66" width="28" height="14" rx="5" fill="#cfe9ff"/>
+            <rect x="-3" y="22" width="5" height="12" rx="2" fill="#c2446a"/><rect x="36" y="22" width="5" height="12" rx="2" fill="#c2446a"/>
+            <rect x="-3" y="66" width="5" height="12" rx="2" fill="#c2446a"/><rect x="36" y="66" width="5" height="12" rx="2" fill="#c2446a"/>
+            <circle cx="9" cy="5" r="3" fill="#fff3c4"/><circle cx="29" cy="5" r="3" fill="#fff3c4"/>
+          </g>
+          <text x="290" y="120" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="25" fill="#fff">98</text>
+          </svg>
+        <p style="margin-top:14px">¿Qué número hay debajo del coche?</p>
+      `,
+      respuestas: ["87", "ochenta y siete"],
       siguiente: "Siempre llegamos de dos en dos, pero la lavadora siempre se come a uno.",
     },
     {

@@ -239,5 +239,8 @@ window.JUEGO = {
       { src: "img/img_9814.jpg", ancha: true, alta: true },
     ],
     video: "", // ej: "video/felicitacion.mp4"
+
+    // Canción que suena al abrir la felicitación (con la carta y las fotos)
+    cancion: { src: "audio/cancion.mp3", titulo: "Te conocí", artista: "Zenar" },
   },
 };

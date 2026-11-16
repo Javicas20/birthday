@@ -355,6 +355,34 @@
   .final .carta { padding-left: 18px; padding-right: 18px; }
   .final .carta .mensaje p { margin: 0 0 14px; }
   .final .carta .mensaje p:last-child { margin: 0; }
+  /* abrir felicitación + reproductor */
+  .final.cerrada .tras-abrir { display: none; }
+  .final.abierta .tras-abrir { animation: revela-carta .9s cubic-bezier(.2, .9, .2, 1) both; }
+  @keyframes revela-carta { from { opacity: 0; transform: translateY(24px); } }
+  .abrir-zona { margin-top: 22px; display: grid; gap: 8px; }
+  .boton.abrir { width: 100%; font-size: 20px; padding: 18px; animation: llama 2.2s ease-in-out infinite; }
+  @keyframes llama { 0%, 100% { box-shadow: 0 5px 0 #0e0a2c, 0 0 0 0 rgba(255, 111, 145, .55); } 50% { box-shadow: 0 5px 0 #0e0a2c, 0 0 0 12px rgba(255, 111, 145, 0); } }
+  .abrir-nota { margin: 0; font-size: 14px; color: var(--gris); }
+  .musica {
+    position: fixed; z-index: 25; left: 50%; bottom: max(14px, env(safe-area-inset-bottom));
+    display: flex; align-items: center; gap: 10px; max-width: calc(100% - 32px);
+    padding: 8px 8px 8px 14px; border-radius: 99px; background: rgba(27, 20, 70, .92); color: #fff;
+    box-shadow: 0 10px 30px rgba(5, 2, 30, .45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    font-size: 14px; translate: -50% 140%; transition: translate .5s cubic-bezier(.3, 1.4, .5, 1);
+  }
+  .musica.ver { translate: -50% 0; }
+  .musica .tema { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: rgba(255, 255, 255, .75); }
+  .musica .tema b { color: var(--foco); font-weight: 700; }
+  .musica .pausa { flex: none; width: 34px; height: 34px; border-radius: 50%; border: 0; background: var(--foco); color: var(--noche); font-size: 12px; font-weight: 800; cursor: pointer; }
+  .eq { display: flex; align-items: flex-end; gap: 2px; height: 16px; flex: none; }
+  .eq i { width: 3px; height: 30%; background: var(--hocico); border-radius: 2px; }
+  .musica.sonando .eq i { animation: eq .9s ease-in-out infinite; }
+  .musica.sonando .eq i:nth-child(2) { animation-delay: -.3s; }
+  .musica.sonando .eq i:nth-child(3) { animation-delay: -.6s; }
+  .musica.sonando .eq i:nth-child(4) { animation-delay: -.15s; }
+  @keyframes eq { 0%, 100% { height: 25%; } 50% { height: 100%; } }
+  .final.abierta { padding-bottom: 56px; }
+
   /* mural de polaroids */
   .mural-titulo { font-family: var(--display); font-weight: 800; font-size: 26px; letter-spacing: -.02em; margin: 34px 0 4px; text-align: center; }
   .mural-sub { margin: 0 0 18px; font-size: 14.5px; color: var(--gris); text-align: center; }
@@ -905,6 +933,11 @@
         </div>
         <p class="kicker">Has resuelto las ${N} preguntas</p>
         <h1>${t(F.titulo)}</h1>
+        ${F.cancion ? `<div class="abrir-zona" id="abrirZona">
+          <button class="boton abrir" id="abrir" type="button">Abrir mi felicitación 💌</button>
+          <p class="abrir-nota">Sube el volumen 🔊</p>
+        </div>` : ""}
+        <div class="tras-abrir">
         <div class="carta">
           <div class="sello">${HUELLA()}</div>
           <div class="mensaje">${t(F.mensaje)}</div>
@@ -919,11 +952,49 @@
             </figure>`).join("")}
           </div>` : ""}
         <button class="boton otra-vez" type="button" id="otraVez">Más confeti</button>
+        </div>
       </div>`;
+    const finalEl = app.querySelector(".final");
     host.perro.dataset.animo = "baila"; host.gato.dataset.animo = "baila";
     setTimeout(() => dice("perro", "¡Feliz cumpleaños, {nombre}! 🎂", 4200), 700);
     setTimeout(() => dice("gato", "Miau, que es «te queremos» en gato 💛", 4200), 5200);
     lluvia(130, 3200);
+
+    // la carta y las fotos se abren con un toque, que además arranca la canción
+    if (F.cancion) {
+      finalEl.classList.add("cerrada");
+      const C = F.cancion;
+      const audio = new Audio(C.src);
+      audio.preload = "auto"; audio.loop = C.repetir !== false;
+      const pill = document.createElement("div");
+      pill.className = "musica";
+      pill.innerHTML = `<span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="tema"><b>${C.titulo || ""}</b>${C.artista ? ` · ${C.artista}` : ""}</span>
+        <button type="button" class="pausa" aria-label="Pausar o reanudar la canción">❚❚</button>`;
+      document.body.appendChild(pill);
+      const btnP = pill.querySelector(".pausa");
+      const pinta = () => { const on = !audio.paused; pill.classList.toggle("sonando", on); btnP.textContent = on ? "❚❚" : "▶"; };
+      audio.addEventListener("play", pinta); audio.addEventListener("pause", pinta);
+      btnP.onclick = () => { audio.paused ? audio.play().catch(() => {}) : audio.pause(); };
+      let iba = false;
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) { iba = !audio.paused; audio.pause(); }
+        else if (iba) audio.play().catch(() => {});
+      });
+      document.getElementById("abrir").onclick = () => {
+        try { audio.volume = .9; } catch {}
+        audio.play().catch(() => {});
+        pill.classList.add("ver");
+        document.getElementById("abrirZona").remove();
+        finalEl.classList.remove("cerrada");
+        finalEl.classList.add("abierta");
+        piezas.forEach(p => { p.fin = 0; });  // deja de llover: que se lea bien la carta
+        animo("perro", "feliz", 1400); animo("gato", "feliz", 1400);
+        dice("perro", C.frase || "Dale al play en tu corazón… 🎶", 3600);
+        setTimeout(() => document.querySelector(".tras-abrir .carta").scrollIntoView({ behavior: QUIETO ? "auto" : "smooth", block: "start" }), 450);
+      };
+    }
+
     document.getElementById("otraVez").onclick = () => { sAcierto(); lluvia(110, 1300); };
 
     // polaroids que caen al aparecer en pantalla

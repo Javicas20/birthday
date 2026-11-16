@@ -225,7 +225,19 @@ window.JUEGO = {
       un buen Barceló con Coca Cola. 🥃</p>
       <p><strong>¡Te quiero mucho!</strong></p>
     `,
-    fotos: [], // ej: ["img/foto1.jpg", "img/foto2.jpg"]
+    // Mural de polaroids. ancha: ocupa dos columnas · alta: recorte vertical · pie: texto manuscrito opcional
+    tituloFotos: "Nuestra mejor mezcla",
+    fotos: [
+      { src: "img/img_9817.jpg", ancha: true, alta: true },
+      { src: "img/img_9829.jpg" },
+      { src: "img/img_2541.jpg" },
+      { src: "img/img_8311.jpg", ancha: true },
+      { src: "img/img_3346.jpg" },
+      { src: "img/img_2095.jpg" },
+      { src: "img/img_2534.jpg", ancha: true },
+      { src: "img/img_7970.jpg", ancha: true },
+      { src: "img/img_9814.jpg", ancha: true, alta: true },
+    ],
     video: "", // ej: "video/felicitacion.mp4"
   },
 };

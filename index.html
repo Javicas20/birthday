@@ -8,7 +8,7 @@
 <title>El 1%</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
   :root {
     --noche: #1b1446;
@@ -355,12 +355,40 @@
   .final .carta { padding-left: 18px; padding-right: 18px; }
   .final .carta .mensaje p { margin: 0 0 14px; }
   .final .carta .mensaje p:last-child { margin: 0; }
-  .polaroids { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 22px; }
-  .polaroids figure { margin: 0; background: #fff; padding: 8px 8px 26px; border-radius: 4px; box-shadow: 0 10px 24px rgba(20, 10, 60, .2); width: 46%; animation: cae .7s cubic-bezier(.3, 1.4, .5, 1) both; }
-  .polaroids figure:nth-child(odd) { rotate: -4deg; }
-  .polaroids figure:nth-child(even) { rotate: 3deg; }
-  .polaroids img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 2px; }
-  @keyframes cae { from { transform: translateY(-40px) scale(.8); opacity: 0; } }
+  /* mural de polaroids */
+  .mural-titulo { font-family: var(--display); font-weight: 800; font-size: 26px; letter-spacing: -.02em; margin: 34px 0 4px; text-align: center; }
+  .mural-sub { margin: 0 0 18px; font-size: 14.5px; color: var(--gris); text-align: center; }
+  .mural { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 12px; padding: 6px 4px 4px; }
+  .pol {
+    position: relative; margin: 0; background: #fff; padding: 7px 7px 30px; border-radius: 3px; cursor: zoom-in;
+    box-shadow: 0 1px 2px rgba(20, 10, 60, .12), 0 12px 24px rgba(20, 10, 60, .16);
+    rotate: var(--r, 0deg); opacity: 0; transform: translateY(-26px) scale(1.12);
+    transition: opacity .45s ease, transform .6s cubic-bezier(.3, 1.4, .5, 1);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pol.ver { opacity: 1; transform: none; }
+  .pol:active { transform: scale(.97); }
+  .pol.ancha { grid-column: span 2; }
+  .pol img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1px; background: #eee; }
+  .pol.ancha img { aspect-ratio: 4 / 3; }
+  .pol.ancha.alta img { aspect-ratio: 4 / 5; object-position: center 35%; }
+  .pol::before {
+    content: ""; position: absolute; top: -10px; left: 50%; width: 64px; height: 20px; translate: -50% 0; rotate: var(--cinta, -3deg);
+    background: rgba(255, 222, 120, .78); box-shadow: 0 1px 2px rgba(0, 0, 0, .08); z-index: 1;
+  }
+  .pol figcaption { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-family: "Caveat", cursive; font-size: 19px; color: #3a3358; line-height: 1; }
+
+  /* visor de fotos */
+  .visor { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; background: rgba(14, 9, 44, .94); opacity: 0; pointer-events: none; transition: opacity .25s; touch-action: pan-y; }
+  .visor.abierto { opacity: 1; pointer-events: auto; }
+  .visor img { max-width: 94vw; max-height: 82vh; border-radius: 6px; box-shadow: 0 20px 60px rgba(0, 0, 0, .5); transition: transform .3s cubic-bezier(.3, 1.4, .5, 1); }
+  .visor.abierto img { animation: zoom .35s cubic-bezier(.3, 1.4, .5, 1); }
+  @keyframes zoom { from { transform: scale(.85); opacity: .3; } }
+  .visor button { position: absolute; border: 0; background: rgba(255, 255, 255, .12); color: #fff; width: 46px; height: 46px; border-radius: 50%; font-size: 22px; cursor: pointer; }
+  .visor .cerrar { top: max(16px, env(safe-area-inset-top)); right: 16px; }
+  .visor .ant { left: 10px; top: 50%; translate: 0 -50%; }
+  .visor .sig { right: 10px; top: 50%; translate: 0 -50%; }
+  .visor .cuenta { position: absolute; bottom: max(18px, env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; color: rgba(255, 255, 255, .7); font-size: 14px; }
   .final video { width: 100%; border-radius: 16px; margin-top: 20px; display: block; }
   .otra-vez { margin-top: 22px; width: 100%; }
 
@@ -859,6 +887,7 @@
 
   function pantallaFinal() {
     const F = J.final;
+    const fotos = (F.fotos || []).map(f => typeof f === "string" ? { src: f } : f);
     pintaHuellas(0);
     app.innerHTML = `
       <div class="final">
@@ -881,7 +910,14 @@
           <div class="mensaje">${t(F.mensaje)}</div>
         </div>
         ${F.video ? `<video src="${F.video}" controls playsinline preload="metadata"></video>` : ""}
-        ${F.fotos && F.fotos.length ? `<div class="polaroids">${F.fotos.map((s, k) => `<figure style="animation-delay:${600 + k * 150}ms"><img src="${s}" alt="" loading="lazy"></figure>`).join("")}</div>` : ""}
+        ${fotos.length ? `
+          <h2 class="mural-titulo">${t(F.tituloFotos || "Nuestra mejor mezcla")}</h2>
+          <p class="mural-sub">${t(F.subtituloFotos || "Toca una foto para verla en grande")}</p>
+          <div class="mural">${fotos.map((f, k) => `
+            <figure class="pol${f.ancha ? " ancha" : ""}${f.alta ? " alta" : ""}" data-i="${k}" style="--r:${f.giro ?? [-3, 2.5, -1.5, 3, -2.5, 1.5][k % 6]}deg;--cinta:${[-4, 3, -2, 5, -5, 2][k % 6]}deg">
+              <img src="${f.src}" alt="" loading="lazy">${f.pie ? `<figcaption>${t(f.pie)}</figcaption>` : ""}
+            </figure>`).join("")}
+          </div>` : ""}
         <button class="boton otra-vez" type="button" id="otraVez">Más confeti</button>
       </div>`;
     host.perro.dataset.animo = "baila"; host.gato.dataset.animo = "baila";
@@ -889,6 +925,51 @@
     setTimeout(() => dice("gato", "Miau, que es «te queremos» en gato 💛", 4200), 5200);
     lluvia(130, 3200);
     document.getElementById("otraVez").onclick = () => { sAcierto(); lluvia(110, 1300); };
+
+    // polaroids que caen al aparecer en pantalla
+    const pols = [...document.querySelectorAll(".pol")];
+    if ("IntersectionObserver" in window && !QUIETO) {
+      const io = new IntersectionObserver((ents) => ents.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add("ver"); io.unobserve(e.target); }
+      }), { threshold: .25 });
+      pols.forEach(p => io.observe(p));
+    } else pols.forEach(p => p.classList.add("ver"));
+
+    // visor a pantalla completa
+    if (fotos.length) {
+      const v = document.createElement("div");
+      v.className = "visor";
+      v.innerHTML = `<img alt=""><button class="cerrar" aria-label="Cerrar">✕</button><button class="ant" aria-label="Anterior">‹</button><button class="sig" aria-label="Siguiente">›</button><p class="cuenta"></p>`;
+      document.body.appendChild(v);
+      const img = v.querySelector("img"), cuenta = v.querySelector(".cuenta");
+      let actual = 0;
+      const ver = (k) => {
+        actual = (k + fotos.length) % fotos.length;
+        img.src = fotos[actual].src;
+        img.style.animation = "none"; void img.offsetWidth; img.style.animation = "";
+        cuenta.textContent = `${actual + 1} / ${fotos.length}`;
+      };
+      const abrir = (k) => { ver(k); v.classList.add("abierto"); };
+      const cerrar = () => v.classList.remove("abierto");
+      pols.forEach(p => p.addEventListener("click", () => abrir(+p.dataset.i)));
+      v.querySelector(".cerrar").onclick = cerrar;
+      v.querySelector(".ant").onclick = (e) => { e.stopPropagation(); ver(actual - 1); };
+      v.querySelector(".sig").onclick = (e) => { e.stopPropagation(); ver(actual + 1); };
+      v.addEventListener("click", (e) => { if (e.target === v) cerrar(); });
+      document.addEventListener("keydown", (e) => {
+        if (!v.classList.contains("abierto")) return;
+        if (e.key === "Escape") cerrar();
+        if (e.key === "ArrowLeft") ver(actual - 1);
+        if (e.key === "ArrowRight") ver(actual + 1);
+      });
+      let x0 = null;
+      v.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+      v.addEventListener("touchend", (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 50) ver(actual + (dx < 0 ? 1 : -1));
+      });
+    }
   }
 
   // ---------- arranque ----------
